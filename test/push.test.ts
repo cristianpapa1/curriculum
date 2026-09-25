@@ -160,3 +160,39 @@ describe("management titles that hide the word 'manager'", () => {
     }
   });
 });
+
+describe("titles a recruiter would never match to this candidate", () => {
+  test("a discipline lead is above level, wherever the word sits", () => {
+    for (const title of ["Chapter Lead Data Analytics", "People Operations & Solutions Lead", "People Systems Lead"]) {
+      const f = checkFit(corpus, { title, descriptionText: "" });
+      expect(f.ok).toBe(false);
+    }
+  });
+
+  test("HR and people-systems roles are a business function, not IT", () => {
+    for (const title of ["Global HRIS Specialist", "Talent Acquisition Partner", "Analista de Departamento Pessoal"]) {
+      const f = checkFit(corpus, { title, descriptionText: "" });
+      expect(f.ok).toBe(false);
+      expect(f.check).toBe("title-tech");
+    }
+  });
+
+  test("hardware engineering is out of domain", () => {
+    for (const title of ["(Senior) FPGA Engineer", "Senior Engineer, Sensor Platform"]) {
+      const f = checkFit(corpus, { title, descriptionText: "" });
+      expect(f.ok).toBe(false);
+      expect(f.check).toBe("title-tech");
+    }
+  });
+
+  test("a duplicated draft posting is skipped", () => {
+    const f = checkFit(corpus, { title: "Copy of Product Security Architect- 9-month temp position", descriptionText: "" });
+    expect(f.ok).toBe(false);
+  });
+
+  test("ANTI: ordinary engineering titles still pass", () => {
+    for (const title of ["Site Reliability Engineer", "Analista de Infraestrutura de TI Júnior", "Security Engineer, Detection"]) {
+      expect(checkFit(corpus, { title, descriptionText: "" }).ok).toBe(true);
+    }
+  });
+});

@@ -52,11 +52,11 @@ const RESERVED_AUDIENCE =
  * building's wiring, not a network.
  */
 const OUT_OF_DOMAIN =
-  /\b(electrical|mechanical|hardware|civil|chemical|aerospace|manufacturing|propulsion|avionics|rf|firmware|embedded|structural)( design)? (engineer|engineering|technician)\b|\bflight test\b|\bprocess engineer\b|\b(el[ée]trica|el[ée]trico|mec[âa]nica|mec[âa]nico|hidr[áa]ulica|civil|qu[íi]mica|predial|automotiva|energia)\b(?![^,]*\b(ti|t\.i\.|sistemas|software|dados|rede)\b)/i;
+  /\b(electrical|mechanical|hardware|civil|chemical|aerospace|manufacturing|propulsion|avionics|rf|firmware|embedded|structural)( design)? (engineer|engineering|technician)\b|\bflight test\b|\bprocess engineer\b|\b(fpga|asic|pcb|verilog|vhdl)\b|\bsensor (platform|systems?|fusion)\b|\b(el[ée]trica|el[ée]trico|mec[âa]nica|mec[âa]nico|hidr[áa]ulica|civil|qu[íi]mica|predial|automotiva|energia)\b(?![^,]*\b(ti|t\.i\.|sistemas|software|dados|rede)\b)/i;
 
 /** Business functions, whatever department they sit in. */
 const BUSINESS_FUNCTION =
-  /\b(financeir[oa]|finance analyst|de neg[óo]cios|business analyst|comercial|vendas|sales|compras|procurement|marketing|recursos humanos|cont[áa]bil|jur[íi]dic[oa])\b/i;
+  /\b(financeir[oa]|finance analyst|de neg[óo]cios|business analyst|comercial|vendas|sales|compras|procurement|marketing|recursos humanos|cont[áa]bil|jur[íi]dic[oa])\b|\b(hris|people (operations|systems|team|partner)|human resources|talent acquisition|recruit(ing|er|ment)|departamento pessoal|folha de pagamento)\b/i;
 
 // ── 1. Level ceiling ───────────────────────────────────────────────────────
 // Titles above an individual-contributor senior: Staff, Principal and the
@@ -74,7 +74,10 @@ const ABOVE_LEVEL = [
   // "Engineering Lead, Payments Platform" passed every pattern above: the word
   // before "lead" decides, so name the discipline forms and the "Lead <role>"
   // shape wherever it appears in the title.
-  /\b(engineering|technical|technology|platform|infrastructure|security|data|delivery|practice|squad|group)\s+lead(er)?\b/i,
+  /\b(engineering|technical|technology|platform|infrastructure|security|data|delivery|practice|squad|chapter|tribe|guild|group|people|product|discipline|operations)\s+(&\s+\w+\s+)?lead(er)?\b/i,
+  // "People Operations & Solutions Lead": the discipline word can be several
+  // words back, so a title ENDING in "Lead" is treated as one too.
+  /\blead\s*$/i,
   /\blead\s+(software|security|platform|data|cloud|systems?)?\s*(engineer|developer|architect|analyst|scientist)\b/i,
   // Portuguese and Spanish management titles: an IAM sweep on a Brazilian board
   // returns "Gerente de Gestão de Identidades" and "Tech Leader de Governança".
@@ -140,6 +143,12 @@ export function checkFit(corpus: Corpus, job: Pick<NormalizedJob, "title" | "des
   const title = job.title;
 
   // Level
+  // "Copy of Product Security Architect- 9-month temp position": a board draft
+  // duplicated by the recruiter. Applying to it reaches nobody.
+  if (/^\s*(copy of|c[óo]pia de)\b/i.test(title)) {
+    return { ok: false, check: "level", reason: `title "${title}" is a duplicated draft posting` };
+  }
+
   const above = ABOVE_LEVEL.find((re) => re.test(title));
   if (above) {
     return { ok: false, check: "level", reason: `title "${title}" is above current level (${above})` };
