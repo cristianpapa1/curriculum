@@ -1,0 +1,41 @@
+# ── Personal — never commit ────────────────────────────────────────────────
+# Your profile, evidence, policy and standing answers
+Corpus/
+# Identifiers and secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+/credentials*
+/secrets*
+**/credentials*.json
+**/secrets*.json
+**/session*.json
+**/cookies*.json
+# Applications carry real CVs, letters, answers and submission proofs
+Applications/
+APPLICATIONS.md
+MANUAL-INDEX.md
+REVIEW.md
+SUBMIT.md
+.staging/
+# Source CVs and personal notes
+Sources/
+ISA.md
+INTERNATIONAL-ORGS.md
+CLAUDE.local.md
+.claude/settings.local.json
+# Browser profiles hold logged-in sessions
+.browser-profile/
+.browser-profile-*/
+# Run logs
+logs/
+*.log
+
+# ── Build / runtime ────────────────────────────────────────────────────────
+node_modules/
+dist/
+.DS_Store
+Companies/*.bak

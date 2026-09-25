@@ -1,0 +1,14 @@
+{
+  "name": "curriculum",
+  "description": "Curriculum — a truthful job-application agent skill",
+  "owner": { "name": "Cristian Papa", "url": "https://github.com/cristianpapa1" },
+  "plugins": [
+    {
+      "name": "curriculum",
+      "source": "./",
+      "description": "Truthful job-search and application agent: onboarding, CV and cover-letter tailoring from verified evidence, form filling and submission.",
+      "category": "productivity",
+      "author": { "name": "Cristian Papa" }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "curriculum",
+  "displayName": "Curriculum",
+  "version": "0.1.0",
+  "description": "Truthful job-search and application agent: onboarding, CV and cover-letter tailoring from verified evidence, form filling and submission — no fabrication, no bot-protection bypass.",
+  "author": { "name": "Cristian Papa", "url": "https://github.com/cristianpapa1" },
+  "homepage": "https://github.com/cristianpapa1/curriculum",
+  "repository": "https://github.com/cristianpapa1/curriculum",
+  "license": "MIT",
+  "keywords": ["jobs", "job-search", "applications", "cv", "resume", "cover-letter", "greenhouse", "automation", "agent-skill"]
+}

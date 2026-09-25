@@ -1,0 +1,159 @@
+# Career corpus — identity layer (TEST FIXTURE — an invented persona)
+#
+# Jordan Reis does not exist. This corpus exists so the test suite has a
+# complete, realistic candidate to run against: every field a real profile needs,
+# with values chosen to exercise the code paths (EU citizenship without
+# sponsorship, a Brazilian residence, months on every degree, a level per field).
+# Never put a real person's data here.
+#
+# `bun run onboard` writes the real user's own copy into Corpus/. Every field
+# there must be true and verifiable: forms, CVs and letters are built from it,
+# and the anti-fabrication gate refuses anything it cannot trace back to the
+# profile or to claims.yaml.
+
+identity:
+  name: Jordan Reis
+  location: Belo Horizonte, MG, Brazil
+  timezone: America/Sao_Paulo
+  email: jordan.reis@example.com
+  phone: "+55 31 95555-0000"
+  website: https://jordanreis.example.com/
+  github: https://github.com/jordan-reis-example/
+  linkedin: https://www.linkedin.com/in/jordan-reis-example/
+  hub: https://jordanreis.example.com/projects/
+
+# Work authorization decides the "will you require sponsorship?" answer — the
+# question that eliminates the most applicants — so it is answered from here only.
+eligibility:
+  citizenship: [Brazil, Poland]
+  passports: [Brazilian, Polish]
+  # The passport forms are told about when they ask for one.
+  declare_passport: Poland
+  country_of_residence: Brazil
+  authorized_to_work:
+    - Brazil
+    - Poland
+    - European Union        # an EU citizenship covers every EU/EEA member state
+    - European Economic Area
+  requires_sponsorship_for: [US, CA, UK]   # the UK needs a visa since Brexit
+  remote_ready: true
+  # Shown on CVs for EU-based roles.
+  eu_work_authorization_statement: "Polish citizen — full EU work authorization, no sponsorship required"
+  # The cover-letter sentence on work authorization, per document language.
+  work_authorization_letter:
+    en: "I am a Polish citizen with full EU work authorization, so no visa sponsorship is needed."
+    pt: "Sou cidadão polonês, com autorização plena de trabalho na UE, sem necessidade de patrocínio de visto."
+    es: "Soy ciudadano polaco, con autorización plena de trabajo en la UE, sin necesidad de patrocinio de visado."
+  # Evidence of cross-timezone work, cited when a posting asks for overlap.
+  proven_timezones: [LATAM, US, Europe]
+  overlap_evidence: claim-follow-the-sun-support
+
+# Citizenship is never fluency: Polish is a passport here, not a language.
+languages:
+  - { language: English, level: C1, certified: true }
+  - { language: Portuguese, level: Native, certified: false }
+  - { language: Spanish, level: Intermediate, certified: false }
+  - { language: German, level: A2, certified: false }
+
+# Forms ask for months; a month the candidate does not know stays unanswered and
+# blocks that form rather than being guessed. `form` is how application
+# dropdowns name the entry — the school to search for, the discipline options.
+education:
+  - institution: Instituto Aurora de Tecnologia (IAT)
+    degree: BSc Software Engineering
+    start: 2025
+    start_month: 2
+    end: 2029
+    end_month: 12
+    status: in_progress          # renders as "in progress — expected 2029"
+    form: { level: bachelor, discipline: ["Software Engineering", "Engenharia de Software"], school: ["Instituto Aurora de Tecnologia", "IAT"] }
+  - institution: Universidade do Vale Claro (UVC)
+    degree: BA Linguistics
+    start: 2017
+    start_month: 2
+    end: 2021
+    end_month: 12
+    status: completed
+    form: { level: bachelor, discipline: ["Linguistics", "Linguística"], school: ["Universidade do Vale Claro", "UVC"] }
+    # Surfaced for roles that value reasoning and language work; suppressed elsewhere.
+    differentiator_for: [ai, ai-governance, product, research]
+  - institution: Colégio Técnico Ipê
+    degree: IT Technician
+    start: 2013
+    start_month: 2
+    end: 2016
+    end_month: 12
+    status: completed
+    form: { level: technical_high_school, discipline: ["Information Technology", "Tecnologia da Informação"], school: ["Colégio Técnico Ipê"] }
+
+# `domains` decide which certifications are named for a posting — only the
+# related ones, and none at all when none relate.
+certifications:
+  - { name: "AWS Certified Security - Specialty", year: 2024, domains: [security, cloud, iam] }
+  - { name: "AWS Certified Solutions Architect - Associate", year: 2023, domains: [cloud, architecture] }
+  - { name: "Microsoft Certified: Identity and Access Administrator Associate", year: 2024, domains: [iam, identity, cloud] }
+  - { name: "Certified Kubernetes Administrator (CKA)", year: 2025, domains: [devops, containers, operations] }
+  - { name: "ISO/IEC 27001 Lead Implementer", year: 2023, domains: [compliance, security, governance] }
+  - { name: "Elastic Certified Observability Engineer", year: 2025, domains: [observability, monitoring, sre] }
+
+# Answers forms ask for and nothing else supplies. Leave a figure out and the
+# forms that require it stay blocked for you to answer by hand.
+current_contract:
+  type: CLT                  # employee; PJ (contractor), freelancer…
+  benefits: health insurance, meal allowance
+  variable_compensation: none
+  monthly_brl: 7200
+
+# Your own level by field: IT operations, IAM, security, full stack, other. It
+# answers "which seniority do you identify with?" for each posting's field.
+self_assessed_seniority: { it: Senior, iam: Pleno, other: Junior }
+
+# Voluntary self-identification. Only what is stated here is answered; every
+# other demographic question is declined.
+self_identification:
+  disability: none
+
+# Yes/no facts; a fact left out is never answered on your behalf.
+declarations:
+  veteran: false
+  held_public_office: false
+  relatives_at_target_companies: false
+  worked_at_target_companies: false
+
+employment:
+  - id: lumengrove
+    employer: Lumen Grove Systems
+    title_official: Infrastructure & Security Analyst
+    start: "2022-08"
+    end: null
+    current: true
+    context: >
+      Regional SaaS provider with engineering split between Brazil and Europe.
+      Owns identity, cloud infrastructure and the compliance programme.
+  - id: rioverde
+    employer: Rio Verde Logistics
+    title_official: IT Support & Systems Analyst
+    start: "2019-03"
+    end: "2022-07"
+    current: false
+    context: >
+      Freight and warehousing company. Ran the service desk, the ERP integrations
+      and the warehouse systems.
+
+# Skill proficiency, stated honestly. Nothing is claimed above its level here.
+skills:
+  expert:      [Python, Terraform, "IAM / RBAC", "ISO 27001", "Microsoft Entra ID", Linux]
+  proficient:  [Docker, Kubernetes, PostgreSQL, FastAPI, React, TypeScript, Bash, "GitHub Actions", Prometheus, Grafana, Ansible, Nginx, "AWS (IAM, EC2, S3)", "REST API design"]
+  intermediate: [Go, Azure, Elasticsearch, SQL, Jira, Playwright, "Power BI", Windows]
+  familiar:    ["MCP (Model Context Protocol)", SIEM, "HashiCorp Vault", "GitLab CI"]
+
+# Known gaps — read so the documents never over-claim.
+gaps:
+  - skill: Rust
+    note: Never claim. Reading and small exercises only.
+  - skill: "Data engineering at scale (Spark, dbt)"
+    note: Never claim. Reporting pipelines are SQL and Python, not a data platform.
+  - skill: "Mobile development"
+    note: No evidence, in any framework.
+  - skill: "Offensive security / penetration testing"
+    note: Defensive work only. Never imply red-team experience.

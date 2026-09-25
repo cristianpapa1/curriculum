@@ -1,0 +1,62 @@
+# Search and application policy (TEMPLATE)
+#
+# Copy this into Corpus/preferences.yaml, or let `bun run onboard` write it.
+# These are decisions only you can make: where you would work, at what level, for
+# how much, and how much the agent may do without asking. The pipeline reads them
+# through src/corpus/policy.ts; nothing personal is hard-coded.
+#
+# A filled-in example is test/fixtures/corpus/preferences.yaml (an invented
+# persona).
+
+# Where place-bound (hybrid/onsite) work needs no move. Empty = any city.
+home:
+  country: <country>
+  cities: [<your city>, <the state abbreviation forms postings use>, <neighbouring cities you would commute to>]
+
+# Other cities in the home country you would move to. Abroad is decided by the
+# eligibility paths you enable (EU with an EU citizenship; US/UK need a visa).
+relocation:
+  within_country: [<city>, <city>]
+
+# Target level per field — iam, it, security, fullstack, other.
+#   any           every level up to senior
+#   up_to_senior  the same, said explicitly
+#   junior        only titles that say junior / entry level / intern
+# By default this orders the manual index; `prepare --focus-only` also filters.
+targeting:
+  focus_levels: { iam: any, it: up_to_senior, security: junior, fullstack: junior, other: junior }
+
+compensation:
+  # true: answer "negotiable" (or leave blank) where a form allows it.
+  # false: always state the low anchor as a number.
+  prefer_avoidance: false
+  # Ceilings on the low anchor, by region and the posting's level, in the
+  # region's currency and period (brazil: BRL per month). Remove what you do not
+  # need; a region with no cap uses the built-in band.
+  caps:
+    brazil: { mid: <monthly BRL>, senior: <monthly BRL>, lead: <monthly BRL>, principal: <monthly BRL> }
+
+# How much the agent may do on its own. `submit --live` refuses to run until
+# onboarding has recorded this.
+#   review  every application is approved by you before it is sent
+#   auto    prepared applications that pass every gate are approved automatically
+autonomy:
+  mode: review
+  # Never more than one application per company per window (spam signals).
+  company_cooldown_hours: 24
+  # Stop the day's run after this many sent applications.
+  daily_cap: 20
+
+# Optional — other names a company sends mail under, when it was renamed after
+# the posting was written. Only used to match an emailed security code to the
+# application that triggered it.
+# mail:
+#   company_aliases: { oldname: ["New Name"] }
+
+# Standing answers the forms ask again and again.
+answers:
+  how_did_you_hear: <where you actually found the posting>   # never "referral"
+  start_availability: <e.g. In 2 weeks>
+  # Voluntary demographics (gender, race, orientation…) are declined unless
+  # profile.yaml `self_identification` states them.
+  decline_voluntary_demographics: true

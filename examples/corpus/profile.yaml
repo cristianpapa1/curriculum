@@ -1,0 +1,114 @@
+# Career corpus — identity layer (TEMPLATE)
+#
+# Copy this into Corpus/profile.yaml and replace every placeholder, or let
+# `bun run onboard` write it for you from the questionnaire. Every field must be
+# true and verifiable: forms, CVs and letters are built from it, and the
+# anti-fabrication gate refuses anything it cannot trace back here or to
+# claims.yaml. Nothing aspirational belongs in this file.
+#
+# A filled-in example of every field is the test fixture in
+# test/fixtures/corpus/ — an invented persona, safe to read for the shape.
+
+identity:
+  name: <full legal name>
+  location: <city>, <state>, <country>
+  timezone: <IANA time zone, e.g. Europe/Lisbon>
+  email: <application email>
+  phone: "<+country area number>"
+  website: <personal site, or remove>
+  github: <github profile, or remove>
+  linkedin: <linkedin profile, or remove>
+  hub: <portfolio or projects page, or remove>
+
+# Work authorization decides the "will you require sponsorship?" answer — the
+# question that eliminates the most applicants — so it is answered from here only.
+eligibility:
+  citizenship: [<country>]          # every citizenship you hold
+  passports: [<nationality>]        # the adjective forms, as passports list them
+  declare_passport: <the citizenship forms should be told about first, or remove>
+  country_of_residence: <country>
+  authorized_to_work:
+    - <country>
+    # An EU citizenship also authorizes every EU/EEA member state — list both:
+    # - European Union
+    # - European Economic Area
+  requires_sponsorship_for: [<countries where you would need a visa>]
+  remote_ready: true
+  # For EU citizens: the CV line and the cover-letter sentence, per language.
+  # eu_work_authorization_statement: "<nationality> citizen — full EU work authorization, no sponsorship required"
+  # work_authorization_letter:
+  #   en: "..."
+  #   pt: "..."
+  #   es: "..."
+  proven_timezones: [<regions you have worked across>]
+  overlap_evidence: <claim id evidencing it, or remove>
+
+# A language you hold a passport for is not a language you speak: list only the
+# ones you actually speak, at an honest CEFR level.
+languages:
+  - { language: <language>, level: <A1..C2 or Native>, certified: <true|false> }
+
+# Forms ask for months; a month you do not know stays unanswered and blocks that
+# form rather than being guessed. `form` is how application dropdowns name the
+# entry — the school to search for, the discipline options, in each language.
+education:
+  - institution: <school>
+    degree: <degree>
+    start: <year>
+    start_month: <1-12>
+    end: <year>
+    end_month: <1-12>
+    status: <completed|in_progress>
+    form: { level: <bachelor|technical_high_school|master|doctorate>, discipline: ["<as the dropdown names it>"], school: ["<search terms>"] }
+
+# `domains` decide which certifications are named for a posting — only the
+# related ones, and none at all when none relate. Remove the section if you
+# hold none.
+certifications:
+  - { name: <certification, as issued>, year: <year>, domains: [<cloud|security|iam|devops|networking|observability|compliance|…>] }
+
+# Answers forms ask for and nothing else supplies. Leave a figure out and the
+# forms that require it stay blocked for you to answer by hand.
+current_contract:
+  type: <employee/CLT|contractor/PJ|freelancer>
+  benefits: <what you receive, or none>
+  variable_compensation: <bonus/commission, or none>
+  monthly_brl: <current monthly pay, or remove>
+
+# Your own level by field: IT operations, IAM, security, full stack, other. It
+# answers "which seniority do you identify with?" for each posting's field.
+self_assessed_seniority: { it: <Junior|Pleno|Senior>, iam: <…>, other: <…> }
+
+# Voluntary self-identification. Only what is stated here is answered; every
+# other demographic question is declined.
+self_identification:
+  disability: <none|yes|decline>
+
+# Yes/no facts; a fact left out is never answered on your behalf.
+declarations:
+  veteran: <true|false>
+  held_public_office: <true|false>
+  relatives_at_target_companies: <true|false>
+  worked_at_target_companies: <true|false>
+
+employment:
+  - id: <short-id-used-by-claims>
+    employer: <employer>
+    title_official: <the title on the contract, never the positioning angle>
+    start: "<YYYY-MM>"
+    end: <"YYYY-MM" or null>
+    current: <true|false>
+    context: >
+      <one or two lines: the environment, and what you owned in it>
+
+# Skill proficiency, stated honestly. Nothing is claimed above its level here.
+skills:
+  expert:      []
+  proficient:  []
+  intermediate: []
+  familiar:    []
+
+# Known gaps — read so the documents never over-claim.
+gaps:
+  - skill: <technology you do not have>
+    note: <what may be said instead, if anything>

@@ -1,0 +1,516 @@
+# Career corpus — atomic evidence claims (TEST FIXTURE — an invented persona)
+#
+# THE CONTRACT: every `claim` and every `variants` entry states something
+# traceable to `source`, which quotes the original CV. Variants may re-emphasise,
+# re-order or re-word. Variants may NOT add a fact, a number, a technology or a
+# scope that `source` does not support. The anti-fabrication gate
+# (src/position/antifab.ts) enforces this mechanically before any submission.
+#
+# `strength` 1-5 = how differentiating this claim is in a competitive pool.
+# `domains` drive selection when a positioning target is requested at runtime.
+# `domains[0]` is what the claim is most about.
+
+claims:
+
+  # ──────────────────────────── Identity and access ────────────────────────────
+  - id: claim-idp-consolidation
+    employer: lumengrove
+    claim: >
+      Consolidated three separate directories into a single Microsoft Entra ID
+      tenant covering 900+ accounts, with one joiner-mover-leaver process for the
+      whole company.
+    variants:
+      iam: >
+        Owns the identity directory for 900+ accounts in Microsoft Entra ID,
+        created by merging three legacy directories into one tenant with a single
+        lifecycle process.
+      security: >
+        Removed three parallel directories as an attack surface, bringing 900+
+        accounts under one Microsoft Entra ID tenant and one lifecycle process.
+    domains: [iam, identity, security, cloud]
+    skills: ["Microsoft Entra ID", "IAM / RBAC", Python]
+    metric: 900+ accounts
+    scope: company-wide identity directory
+    strength: 5
+    source: >
+      "Merged three directories into a single Microsoft Entra ID tenant (900+
+      accounts) and defined the joiner-mover-leaver process used company-wide."
+
+  - id: claim-access-reviews
+    employer: lumengrove
+    claim: >
+      Runs quarterly access reviews across 40 SaaS applications, with evidence
+      exported for the auditors and least-privilege exceptions tracked to closure.
+    domains: [iam, compliance, governance]
+    skills: ["IAM / RBAC", "ISO 27001", Python]
+    metric: 40 SaaS applications
+    scope: quarterly review cycle
+    strength: 4
+    source: >
+      "Quarterly access reviews over 40 SaaS applications, producing auditor-ready
+      evidence and tracking least-privilege exceptions to closure."
+
+  - id: claim-rbac-terraform
+    employer: lumengrove
+    claim: >
+      Defined RBAC for AWS and Azure as Terraform modules, so every role change is
+      reviewed in a pull request instead of clicked in a console.
+    variants:
+      devops: >
+        Moved cloud RBAC into reviewed Terraform modules across AWS and Azure,
+        replacing console changes with pull requests.
+      iam: >
+        Expressed least-privilege role design as code: Terraform modules for AWS
+        and Azure roles, reviewed like any other change.
+    domains: [iam, devops, cloud, automation]
+    skills: [Terraform, "AWS (IAM, EC2, S3)", Azure, "IAM / RBAC"]
+    metric: null
+    scope: two cloud providers
+    strength: 5
+    source: >
+      "Cloud RBAC defined as Terraform modules for AWS and Azure; role changes go
+      through pull requests."
+
+  - id: claim-mfa-rollout
+    employer: lumengrove
+    claim: >
+      Rolled multi-factor authentication and conditional access out to 900+
+      accounts without a service interruption, phasing exemptions to zero.
+    domains: [security, iam]
+    skills: ["Microsoft Entra ID", "IAM / RBAC"]
+    metric: 900+ accounts
+    scope: company-wide rollout
+    strength: 4
+    source: >
+      "MFA and conditional access rolled out to 900+ accounts with no service
+      interruption; exemptions phased out to zero."
+
+  - id: claim-onboarding-sops
+    employer: lumengrove
+    claim: >
+      Wrote the onboarding and offboarding standard operating procedures the
+      service desk follows, covering accounts, devices and access revocation.
+    domains: [operations, compliance, iam]
+    skills: ["IAM / RBAC", "ISO 27001"]
+    metric: null
+    scope: service-desk procedures
+    strength: 3
+    source: >
+      "Authored onboarding/offboarding SOPs covering account creation, device
+      handover and access revocation."
+
+  # ──────────────────────────── Security operations ────────────────────────────
+  - id: claim-endpoint-fleet
+    employer: lumengrove
+    claim: >
+      Runs patch and configuration compliance across 600 endpoints, including a
+      bring-your-own-device fleet under a managed policy.
+    variants:
+      security: >
+        Keeps 600 endpoints, BYOD included, inside a managed patch and
+        configuration policy with compliance measured monthly.
+    domains: [security, operations, endpoint]
+    skills: [Ansible, Linux, Windows, Bash]
+    metric: 600 endpoints
+    scope: distributed endpoint fleet
+    strength: 4
+    source: >
+      "Patch and configuration compliance across 600 endpoints, including BYOD
+      assets under a managed policy."
+
+  - id: claim-incident-runbooks
+    employer: lumengrove
+    claim: >
+      Wrote the incident-response runbooks and ran the post-incident reviews,
+      turning each incident into a tracked fix rather than a repeat.
+    domains: [security, operations, incident-response]
+    skills: [SIEM, Linux, Python]
+    metric: null
+    scope: security incident process
+    strength: 4
+    source: >
+      "Authored incident-response runbooks and facilitated post-incident reviews,
+      with every finding tracked to a fix."
+
+  - id: claim-siem-detection
+    employer: lumengrove
+    claim: >
+      Built detection rules in Elasticsearch for identity and endpoint events, so
+      failed-authentication bursts and new admin grants raise an alert.
+    domains: [security, observability, detection]
+    skills: [Elasticsearch, SIEM, "Microsoft Entra ID"]
+    metric: null
+    scope: identity and endpoint telemetry
+    strength: 4
+    source: >
+      "Detection rules in Elasticsearch over identity and endpoint logs: failed
+      authentication bursts, new administrator grants."
+
+  # ──────────────────────────── Compliance and risk ────────────────────────────
+  - id: claim-iso27001-certification
+    employer: lumengrove
+    claim: >
+      Led the ISO 27001 implementation from gap analysis to certification: the
+      statement of applicability, the controls, and the evidence the audit needed.
+    variants:
+      compliance: >
+        Took ISO 27001 from gap analysis to a certified information security
+        management system, owning the statement of applicability and the control
+        evidence.
+      security: >
+        Turned ISO 27001 into working controls — access, change and incident
+        management — rather than a document set written for an audit.
+    domains: [compliance, security, governance]
+    skills: ["ISO 27001", "IAM / RBAC"]
+    metric: null
+    scope: company-wide certification
+    strength: 5
+    source: >
+      "Led ISO 27001 from gap analysis to certification, owning the statement of
+      applicability, the control set and the audit evidence."
+
+  - id: claim-vendor-risk
+    employer: lumengrove
+    claim: >
+      Set up the vendor risk review that every new SaaS purchase passes, scoring
+      data access and exit terms before the contract is signed.
+    domains: [compliance, governance, security]
+    skills: ["ISO 27001"]
+    metric: null
+    scope: procurement process
+    strength: 3
+    source: >
+      "Vendor risk review applied to every new SaaS purchase, scoring data access
+      and exit terms before signature."
+
+  # ─────────────────────────── Platform and delivery ───────────────────────────
+  - id: claim-terraform-modules
+    employer: lumengrove
+    claim: >
+      Wrote the reusable Terraform modules the engineering teams use for networks,
+      databases and IAM roles, replacing copy-pasted stacks.
+    variants:
+      devops: >
+        Built the shared Terraform module library — networking, databases, IAM
+        roles — that every team provisions from, ending copy-pasted stacks.
+    domains: [devops, cloud, automation, architecture]
+    skills: [Terraform, "AWS (IAM, EC2, S3)", Azure]
+    metric: null
+    scope: shared infrastructure library
+    strength: 5
+    source: >
+      "Reusable Terraform modules for networking, databases and IAM roles, adopted
+      by the engineering teams in place of copied stacks."
+
+  - id: claim-kubernetes-migration
+    employer: lumengrove
+    claim: >
+      Migrated the application services from hand-managed virtual machines to
+      Kubernetes, with rollouts and rollbacks that no longer need a maintenance
+      window.
+    variants:
+      devops: >
+        Moved services off hand-managed VMs onto Kubernetes, making rollout and
+        rollback routine instead of a maintenance window.
+      architecture: >
+        Re-platformed the service estate onto Kubernetes, choosing the cluster
+        topology, the ingress model and the rollout strategy.
+    domains: [devops, cloud, architecture, platform]
+    skills: [Kubernetes, Docker, Terraform, Nginx]
+    metric: null
+    scope: application service estate
+    strength: 5
+    source: >
+      "Migrated application services from hand-managed VMs to Kubernetes;
+      rollouts and rollbacks no longer require a maintenance window."
+
+  - id: claim-cicd-pipelines
+    employer: lumengrove
+    claim: >
+      Built the GitHub Actions pipelines that test, build and deploy the services,
+      cutting a release from a scheduled evening task to a merge.
+    domains: [devops, automation, devsecops]
+    skills: ["GitHub Actions", Docker, Bash]
+    metric: null
+    scope: delivery pipeline
+    strength: 4
+    source: >
+      "GitHub Actions pipelines for test, build and deploy; releases happen on
+      merge instead of a scheduled evening window."
+
+  - id: claim-pipeline-security-scanning
+    employer: lumengrove
+    claim: >
+      Added dependency and container scanning to the delivery pipeline, with a
+      severity threshold that fails the build instead of filing a ticket.
+    variants:
+      devsecops: >
+        Put dependency and container scanning inside the pipeline and made the
+        severity threshold a build failure, so security findings block a release
+        rather than queue behind one.
+    domains: [devsecops, security, automation]
+    skills: ["GitHub Actions", Docker, Python]
+    metric: null
+    scope: every service pipeline
+    strength: 5
+    source: >
+      "Dependency and container scanning in the delivery pipeline, failing the
+      build above a severity threshold."
+
+  - id: claim-secrets-management
+    employer: lumengrove
+    claim: >
+      Moved application secrets out of environment files into HashiCorp Vault,
+      with short-lived credentials and rotation on a schedule.
+    domains: [devsecops, security, cloud]
+    skills: ["HashiCorp Vault", Terraform, Python]
+    metric: null
+    scope: application credentials
+    strength: 4
+    source: >
+      "Application secrets moved from environment files to HashiCorp Vault, with
+      short-lived credentials and scheduled rotation."
+
+  - id: claim-image-hardening
+    employer: lumengrove
+    claim: >
+      Rebuilt the container base images on minimal distributions and pinned
+      versions, removing most of the known vulnerabilities the scanner reported.
+    domains: [devsecops, security, containers]
+    skills: [Docker, Linux, Bash]
+    metric: null
+    scope: container base images
+    strength: 4
+    source: >
+      "Rebuilt base images on minimal distributions with pinned versions,
+      clearing most reported vulnerabilities."
+
+  # ──────────────────────────────── Observability ──────────────────────────────
+  - id: claim-observability-stack
+    employer: lumengrove
+    claim: >
+      Built the Prometheus and Grafana stack the teams use, with dashboards per
+      service and alerts that name the owner.
+    variants:
+      observability: >
+        Owns the Prometheus and Grafana platform: per-service dashboards, alert
+        routing that names an owner, and retention the teams can afford.
+    domains: [observability, devops, monitoring]
+    skills: [Prometheus, Grafana, Kubernetes, Python]
+    metric: null
+    scope: shared monitoring platform
+    strength: 5
+    source: >
+      "Prometheus and Grafana stack with per-service dashboards and ownership-based
+      alert routing."
+
+  - id: claim-slo-alerting
+    employer: lumengrove
+    claim: >
+      Replaced threshold alerts with service-level objectives, so paging follows
+      the error budget instead of every transient spike.
+    domains: [observability, sre, operations]
+    skills: [Prometheus, Grafana]
+    metric: null
+    scope: alerting policy
+    strength: 4
+    source: >
+      "Alerting moved from static thresholds to SLOs and error budgets; paging
+      follows budget burn, not transient spikes."
+
+  - id: claim-log-cost-reduction
+    employer: lumengrove
+    claim: >
+      Cut log storage spend by 42% by sampling debug events and tiering retention,
+      with no loss of the fields used in investigations.
+    domains: [observability, cloud, cost]
+    skills: [Elasticsearch, Python]
+    metric: 42%
+    scope: logging platform
+    strength: 4
+    source: >
+      "Reduced log storage spend 42% through debug sampling and tiered retention,
+      keeping every field used in investigations."
+
+  # ─────────────────────────── Cloud and architecture ──────────────────────────
+  - id: claim-landing-zone
+    employer: lumengrove
+    claim: >
+      Designed the multi-account landing zone — account layout, network
+      segmentation and baseline IAM — that new environments are created from.
+    variants:
+      architecture: >
+        Designed the landing zone the company builds environments from: account
+        boundaries, network segmentation and a baseline IAM model.
+      cloud: >
+        Built the multi-account cloud foundation — account layout, segmentation
+        and baseline roles — so a new environment starts compliant.
+    domains: [cloud, architecture, iam]
+    skills: [Terraform, "AWS (IAM, EC2, S3)", Azure, "IAM / RBAC"]
+    metric: null
+    scope: cloud foundation
+    strength: 5
+    source: >
+      "Designed a multi-account landing zone: account layout, network segmentation
+      and baseline IAM, used for every new environment."
+
+  - id: claim-cloud-cost
+    employer: lumengrove
+    claim: >
+      Brought cloud spend down 31% by right-sizing workloads and scheduling
+      non-production environments, without touching production capacity.
+    domains: [cloud, architecture, operations]
+    skills: [Terraform, Python, "AWS (IAM, EC2, S3)"]
+    metric: 31%
+    scope: cloud estate
+    strength: 4
+    source: >
+      "Cloud spend reduced 31% through right-sizing and scheduled shutdown of
+      non-production environments."
+
+  # ───────────────────────── Full stack and automation ─────────────────────────
+  - id: claim-internal-portal
+    employer: lumengrove
+    claim: >
+      Built the internal access-request portal end to end — React front end,
+      FastAPI service, PostgreSQL — so requests are approved in one place and
+      logged for the audit.
+    variants:
+      fullstack: >
+        Shipped an internal portal end to end: React front end, FastAPI service
+        and PostgreSQL schema, replacing an email approval chain.
+    domains: [fullstack, automation, platform]
+    skills: [React, TypeScript, FastAPI, Python, PostgreSQL]
+    metric: null
+    scope: internal application
+    strength: 4
+    source: >
+      "Built an internal access-request portal (React, FastAPI, PostgreSQL) that
+      replaced email approvals and logs every decision for audit."
+
+  - id: claim-erp-integrations
+    employer: rioverde
+    claim: >
+      Wrote the integrations between the ERP and the carrier systems, replacing
+      the spreadsheets the warehouse team re-typed every morning.
+    domains: [automation, fullstack, integration]
+    skills: [Python, "REST API design", PostgreSQL, SQL]
+    metric: null
+    scope: ERP and carrier systems
+    strength: 4
+    source: >
+      "Integrations between the ERP and carrier systems, replacing manually
+      re-typed spreadsheets."
+
+  - id: claim-warehouse-automation
+    employer: rioverde
+    claim: >
+      Automated the warehouse's daily stock reconciliation, turning a
+      three-hour manual count into a scheduled job with an exception report.
+    domains: [automation, operations]
+    skills: [Python, SQL, Bash]
+    metric: null
+    scope: warehouse operations
+    strength: 3
+    source: >
+      "Automated daily stock reconciliation: a three-hour manual count became a
+      scheduled job producing an exception report."
+
+  - id: claim-follow-the-sun-support
+    employer: rioverde
+    claim: >
+      Ran the service desk across Brazilian, US and European working hours,
+      handing over open incidents between regions with a written protocol.
+    domains: [operations, support]
+    skills: [Jira, Linux, Windows]
+    metric: null
+    scope: cross-timezone support
+    strength: 3
+    source: >
+      "Service desk covering Brazilian, US and European hours, with a written
+      handover protocol for open incidents."
+
+  # ───────────────────────────────── AI systems ────────────────────────────────
+  - id: claim-mcp-agent-tooling
+    employer: lumengrove
+    claim: >
+      Built an MCP server that exposes the operational runbooks as typed tools, so
+      an assistant can read inventory and open a ticket without shell access.
+    variants:
+      ai: >
+        Built the MCP server that gives an agent typed tools over the operational
+        runbooks — read inventory, open a ticket — with no shell access and every
+        call logged.
+      ai-fullstack: >
+        Designed and shipped the MCP tool layer end to end: typed tool
+        definitions, a FastAPI backend and an audit log of every agent call.
+    domains: [ai, automation, platform]
+    skills: ["MCP (Model Context Protocol)", Python, FastAPI]
+    metric: null
+    scope: internal agent tooling
+    strength: 5
+    source: >
+      "Built an MCP server exposing operational runbooks as typed tools (inventory
+      reads, ticket creation) with no shell access and an audit log per call."
+
+  - id: claim-ai-triage-assistant
+    employer: lumengrove
+    claim: >
+      Shipped a triage assistant for the service desk that drafts a first response
+      from past tickets, with a human approving every reply before it is sent.
+    variants:
+      ai-fullstack: >
+        Built the triage assistant end to end — retrieval over past tickets, a
+        FastAPI service and a React review screen where a human approves every
+        drafted reply.
+    domains: [ai, ai-fullstack, fullstack, automation]
+    skills: [Python, FastAPI, React, PostgreSQL]
+    metric: null
+    scope: service-desk tooling
+    strength: 4
+    source: >
+      "Service-desk triage assistant drafting first responses from past tickets,
+      with human approval required before sending."
+
+  - id: claim-ai-guardrails
+    employer: lumengrove
+    claim: >
+      Wrote the safety rules the assistant runs under — no customer data in
+      prompts, no action without confirmation, every call recorded.
+    domains: [ai, security, governance]
+    skills: [Python, "ISO 27001"]
+    metric: null
+    scope: assistant safety model
+    strength: 4
+    source: >
+      "Defined the assistant's safety rules: no customer data in prompts, no
+      action without confirmation, full call logging."
+
+  # ─────────────────────────── Independent projects ────────────────────────────
+  - id: claim-open-source-tool
+    employer: null
+    claim: >
+      Publishes an open-source command-line tool that checks Terraform plans for
+      permissive IAM statements before they are applied.
+    domains: [automation, devsecops, iam]
+    skills: [Go, Terraform, "IAM / RBAC"]
+    metric: null
+    scope: independent project
+    strength: 3
+    source: >
+      "Open-source CLI that flags permissive IAM statements in a Terraform plan
+      before apply."
+
+  - id: claim-personal-site
+    employer: null
+    claim: >
+      Builds and maintains a personal site and its writing about infrastructure
+      practice, deployed from its own pipeline.
+    domains: [fullstack, frontend]
+    skills: [TypeScript, React, "GitHub Actions"]
+    metric: null
+    scope: independent project
+    strength: 3
+    source: >
+      "Personal site and technical writing, deployed from its own GitHub Actions
+      pipeline."

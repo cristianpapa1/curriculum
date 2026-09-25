@@ -1,0 +1,22 @@
+{
+  "name": "curriculum",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "corpus": "bun run src/corpus/load.ts",
+    "project": "bun run src/position/project.ts",
+    "test": "bun test",
+    "onboard": "bun run scripts/onboard.ts",
+    "doctor": "bun run scripts/doctor.ts",
+    "typecheck": "bunx tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.4.2",
+    "playwright": "^1.63.0",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "imapflow": "^2.0.3"
+  }
+}

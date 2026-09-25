@@ -1,0 +1,25 @@
+# Claim translations — Portuguese (pt-BR) and Spanish (es). (TEMPLATE)
+#
+# Keyed by claim id. Each translation renders the claim's CANONICAL text; angle
+# variants stay English-only, so a localized document still gets the angle's
+# SELECTION and ORDERING while reading in one consistent voice.
+#
+# HARD RULE, enforced in src/render/cv.ts: if any claim selected for a document
+# lacks a translation for the target language, the ENTIRE document falls back to
+# English. A half-translated CV reads as broken and is worse than an English one.
+# So coverage grows incrementally, and the pipeline starts using pt/es on its own
+# once every claim it selects is covered.
+#
+# Numbers and technology names are never translated — checkTranslationIntegrity()
+# in src/render/locale.ts asserts they survive unchanged.
+#
+# This file is optional: with no i18n.yaml, every document renders in English.
+# A worked set is test/fixtures/corpus/i18n.yaml (an invented persona).
+
+translations:
+
+  <claim-id>:
+    pt: >
+      <the canonical claim in Portuguese, same numbers and technology names>
+    es: >
+      <the canonical claim in Spanish, same numbers and technology names>

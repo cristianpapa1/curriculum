@@ -1,0 +1,838 @@
+[
+  {
+    "q": "What is your nationality",
+    "a": [
+      "Brazilian",
+      "Brazil",
+      "Polish"
+    ],
+    "why": "Brazilian and Polish citizen (profile.yaml eligibility)",
+    "personal": true
+  },
+  {
+    "q": "Qual é a sua nacionalidade",
+    "a": [
+      "Brasileira",
+      "Brasil",
+      "Brasileiro",
+      "Brazilian"
+    ],
+    "why": "cidadão brasileiro (profile.yaml eligibility)",
+    "personal": true
+  },
+  {
+    "q": "authorization to live and work i",
+    "a": [
+      "Yes",
+      "Sim"
+    ],
+    "why": "Brazilian residence plus EU rights through Polish citizenship",
+    "personal": true
+  },
+  {
+    "q": "What is your current work authorization or v",
+    "a": [
+      "Brazilian citizen",
+      "Citizen",
+      "Brazilian"
+    ],
+    "why": "lives and works in Brazil as a citizen",
+    "personal": true
+  },
+  {
+    "q": "When can you start a new role",
+    "a": "In 2 weeks",
+    "why": "notice period stated in preferences.yaml answers",
+    "personal": true
+  },
+  {
+    "q": "Country Phone Code",
+    "a": [
+      "BRA (+55)",
+      "Brazil (+55)",
+      "Brasil +55",
+      "Brazil"
+    ],
+    "why": "phone number is Brazilian (profile.yaml identity)",
+    "personal": true
+  },
+  {
+    "q": "hiring model is Full-time (CLT)",
+    "a": [
+      "Yes"
+    ],
+    "why": "already employed under CLT (profile.yaml current_contract)",
+    "personal": true
+  },
+  {
+    "q": "Qual é o seu estado de residência",
+    "a": [
+      "Minas Gerais (MG)",
+      "Minas Gerais"
+    ],
+    "why": "reside em Belo Horizonte, MG (profile.yaml identity)",
+    "personal": true
+  },
+  {
+    "q": "Em qual dessas cidades você reside",
+    "a": [
+      "Belo Horizonte",
+      "Belo Horizonte (Capital)",
+      "Capital"
+    ],
+    "why": "reside em Belo Horizonte (profile.yaml identity)",
+    "personal": true
+  },
+  {
+    "q": "Quanto tempo de experiência profissional",
+    "a": [
+      "4 a 8 anos"
+    ],
+    "why": "emprego contínuo desde 2019-03 (profile.yaml employment)",
+    "personal": true
+  },
+  {
+    "q": "Você possui curso superior completo",
+    "a": [
+      "Sim, possuo um bacharelado/licenciatura completo"
+    ],
+    "why": "bacharelado em Linguística concluído em 2021 (profile.yaml education)",
+    "personal": true
+  },
+  {
+    "q": "em qual curso você se formou",
+    "a": [
+      "Linguística"
+    ],
+    "why": "bacharelado em Linguística (profile.yaml education)",
+    "personal": true
+  },
+  {
+    "q": "benefits do you currently receive",
+    "a": "Health insurance and a meal allowance.",
+    "why": "stated in profile.yaml current_contract",
+    "personal": true
+  },
+  {
+    "q": "Benefícios atuais",
+    "a": "Plano de saúde e vale-refeição.",
+    "why": "profile.yaml current_contract",
+    "personal": true
+  },
+  {
+    "q": "Do you have variable compensation",
+    "a": [
+      "No"
+    ],
+    "why": "no variable pay (profile.yaml current_contract)",
+    "personal": true
+  },
+  {
+    "q": "What is your variable compensation (%)",
+    "a": "0",
+    "why": "no variable pay (profile.yaml current_contract)",
+    "personal": true
+  },
+  {
+    "q": "regime de contratação",
+    "a": [
+      "CLT"
+    ],
+    "why": "profile.yaml current_contract",
+    "personal": true
+  },
+  {
+    "q": "current base salary",
+    "a": "7200",
+    "why": "current monthly pay (profile.yaml current_contract)",
+    "personal": true
+  },
+  {
+    "q": "salário atual",
+    "a": "R$ 7.200,00 mensais (CLT)",
+    "why": "profile.yaml current_contract",
+    "personal": true
+  },
+  {
+    "q": "Currency",
+    "a": [
+      "BRL",
+      "Brazilian Real",
+      "R$"
+    ],
+    "why": "paid in Brazilian reais",
+    "personal": true
+  },
+  {
+    "q": "Nome de preferência",
+    "a": "__PREFERRED_NAME__",
+    "why": "first name on the profile"
+  },
+  {
+    "q": "Preferred First Name",
+    "a": "__PREFERRED_NAME__",
+    "why": "first name on the profile"
+  },
+  {
+    "q": "Legal Name",
+    "a": "__LEGAL_NAME__",
+    "why": "name on the profile"
+  },
+  {
+    "q": "Empresa atual ou",
+    "a": [
+      "__EMPLOYER__",
+      "Outra",
+      "Outros",
+      "Other"
+    ],
+    "why": "current employer; \"Other\" when it is not on a company dropdown"
+  },
+  {
+    "q": "Current / Most Recent Company",
+    "a": "__EMPLOYER__",
+    "why": "current employer on the profile"
+  },
+  {
+    "q": "Where are you currently working",
+    "a": "__EMPLOYER__",
+    "why": "current employer on the profile"
+  },
+  {
+    "q": "Qual é o nome da empresa em que você trabalha",
+    "a": "__EMPLOYER__",
+    "why": "current employer on the profile"
+  },
+  {
+    "q": "Current / Most Recent Title",
+    "a": "__JOB_TITLE__",
+    "why": "current official title on the profile"
+  },
+  {
+    "q": "Qual é o seu cargo atual",
+    "a": "__JOB_TITLE__",
+    "why": "current official title on the profile"
+  },
+  {
+    "q": "Você é uma pessoa indicada",
+    "a": [
+      "Não",
+      "No"
+    ],
+    "why": "never a referral"
+  },
+  {
+    "q": "Você é indicação de alguma pessoa",
+    "a": [
+      "Não",
+      "No"
+    ],
+    "why": "never a referral"
+  },
+  {
+    "q": "were you referred to this",
+    "a": [
+      "No"
+    ],
+    "why": "never a referral"
+  },
+  {
+    "q": "raça e/ou",
+    "a": [
+      "Prefiro não responder",
+      "Prefiro não informar",
+      "Prefiro não declarar",
+      "Não desejo informar",
+      "Prefer not to answer (Prefiro não responder)",
+      "I prefer not to disclose",
+      "I don't wish to answer",
+      "I do not wish to answer",
+      "Prefer not to say",
+      "Prefer not to answer",
+      "I prefer not to answer",
+      "Prefiero no responder",
+      "Prefiero no decir",
+      "Não quero responder",
+      "I'd rather not say",
+      "Decline To Self Identify",
+      "I do not want to answer"
+    ],
+    "why": "voluntary — declined"
+  },
+  {
+    "q": "com qual raça",
+    "a": [
+      "Prefiro não responder",
+      "Prefiro não informar",
+      "Prefiro não declarar",
+      "Não desejo informar",
+      "Prefer not to answer (Prefiro não responder)",
+      "I prefer not to disclose",
+      "I don't wish to answer",
+      "I do not wish to answer",
+      "Prefer not to say",
+      "Prefer not to answer",
+      "I prefer not to answer",
+      "Prefiero no responder",
+      "Prefiero no decir",
+      "Não quero responder",
+      "I'd rather not say",
+      "Decline To Self Identify",
+      "I do not want to answer"
+    ],
+    "why": "voluntary — declined"
+  },
+  {
+    "q": "Qual é a sua raça/etnia",
+    "a": [
+      "Prefiro não responder",
+      "Prefiro não informar",
+      "Prefiro não declarar",
+      "Não desejo informar",
+      "Prefer not to answer (Prefiro não responder)",
+      "I prefer not to disclose",
+      "I don't wish to answer",
+      "I do not wish to answer",
+      "Prefer not to say",
+      "Prefer not to answer",
+      "I prefer not to answer",
+      "Prefiero no responder",
+      "Prefiero no decir",
+      "Não quero responder",
+      "I'd rather not say",
+      "Decline To Self Identify",
+      "I do not want to answer"
+    ],
+    "why": "voluntary — declined"
+  },
+  {
+    "q": "orientação sexual",
+    "a": [
+      "Prefiro não responder",
+      "Prefiro não informar",
+      "Prefiro não declarar",
+      "Não desejo informar",
+      "Prefer not to answer (Prefiro não responder)",
+      "I prefer not to disclose",
+      "I don't wish to answer",
+      "I do not wish to answer",
+      "Prefer not to say",
+      "Prefer not to answer",
+      "I prefer not to answer",
+      "Prefiero no responder",
+      "Prefiero no decir",
+      "Não quero responder",
+      "I'd rather not say",
+      "Decline To Self Identify",
+      "I do not want to answer"
+    ],
+    "why": "voluntary — declined"
+  },
+  {
+    "q": "Orientação Sexual Afetiva",
+    "a": [
+      "Prefiro não responder",
+      "Prefiro não informar",
+      "Prefiro não declarar",
+      "Não desejo informar",
+      "Prefer not to answer (Prefiro não responder)",
+      "I prefer not to disclose",
+      "I don't wish to answer",
+      "I do not wish to answer",
+      "Prefer not to say",
+      "Prefer not to answer",
+      "I prefer not to answer",
+      "Prefiero no responder",
+      "Prefiero no decir",
+      "Não quero responder",
+      "I'd rather not say",
+      "Decline To Self Identify",
+      "I do not want to answer"
+    ],
+    "why": "voluntary — declined"
+  },
+  {
+    "q": "identidade de gênero",
+    "a": [
+      "Prefiro não responder",
+      "Prefiro não informar",
+      "Prefiro não declarar",
+      "Não desejo informar",
+      "Prefer not to answer (Prefiro não responder)",
+      "I prefer not to disclose",
+      "I don't wish to answer",
+      "I do not wish to answer",
+      "Prefer not to say",
+      "Prefer not to answer",
+      "I prefer not to answer",
+      "Prefiero no responder",
+      "Prefiero no decir",
+      "Não quero responder",
+      "I'd rather not say",
+      "Decline To Self Identify",
+      "I do not want to answer"
+    ],
+    "why": "voluntary — declined"
+  },
+  {
+    "q": "Gênero",
+    "a": [
+      "Prefiro não responder",
+      "Prefiro não informar",
+      "Prefiro não declarar",
+      "Não desejo informar",
+      "Prefer not to answer (Prefiro não responder)",
+      "I prefer not to disclose",
+      "I don't wish to answer",
+      "I do not wish to answer",
+      "Prefer not to say",
+      "Prefer not to answer",
+      "I prefer not to answer",
+      "Prefiero no responder",
+      "Prefiero no decir",
+      "Não quero responder",
+      "I'd rather not say",
+      "Decline To Self Identify",
+      "I do not want to answer"
+    ],
+    "why": "voluntary — declined"
+  },
+  {
+    "q": "neurodivergent",
+    "a": [
+      "Prefiro não responder",
+      "Prefiro não informar",
+      "Prefiro não declarar",
+      "Não desejo informar",
+      "Prefer not to answer (Prefiro não responder)",
+      "I prefer not to disclose",
+      "I don't wish to answer",
+      "I do not wish to answer",
+      "Prefer not to say",
+      "Prefer not to answer",
+      "I prefer not to answer",
+      "Prefiero no responder",
+      "Prefiero no decir",
+      "Não quero responder",
+      "I'd rather not say",
+      "Decline To Self Identify",
+      "I do not want to answer"
+    ],
+    "why": "voluntary — declined"
+  },
+  {
+    "q": "neurodive",
+    "a": [
+      "Prefiro não responder",
+      "Prefiro não informar",
+      "Prefiro não declarar",
+      "Não desejo informar",
+      "Prefer not to answer (Prefiro não responder)",
+      "I prefer not to disclose",
+      "I don't wish to answer",
+      "I do not wish to answer",
+      "Prefer not to say",
+      "Prefer not to answer",
+      "I prefer not to answer",
+      "Prefiero no responder",
+      "Prefiero no decir",
+      "Não quero responder",
+      "I'd rather not say",
+      "Decline To Self Identify",
+      "I do not want to answer"
+    ],
+    "why": "voluntary — declined"
+  },
+  {
+    "q": "LGBTQIA+",
+    "a": [
+      "Prefiro não responder",
+      "Prefiro não informar",
+      "Prefiro não declarar",
+      "Não desejo informar",
+      "Prefer not to answer (Prefiro não responder)",
+      "I prefer not to disclose",
+      "I don't wish to answer",
+      "I do not wish to answer",
+      "Prefer not to say",
+      "Prefer not to answer",
+      "I prefer not to answer",
+      "Prefiero no responder",
+      "Prefiero no decir",
+      "Não quero responder",
+      "I'd rather not say",
+      "Decline To Self Identify",
+      "I do not want to answer"
+    ],
+    "why": "voluntary — declined"
+  },
+  {
+    "q": "Demographic Information",
+    "a": [
+      "Prefer not to",
+      "I prefer not",
+      "Decline",
+      "I Agree"
+    ],
+    "why": "voluntary answers declined; EBANX's field of this name is a consent whose only option is \"I Agree\""
+  },
+  {
+    "q": "Privacy Notice",
+    "a": [
+      "Yes",
+      "I agree",
+      "I acknowledge",
+      "Acknowledge",
+      "I have read",
+      "I confirm that I have access"
+    ],
+    "why": "required to apply"
+  },
+  {
+    "q": "On Data Privacy",
+    "a": [
+      "Yes",
+      "I agree",
+      "I acknowledge",
+      "Agree",
+      "Acknowledge"
+    ],
+    "why": "required to apply"
+  },
+  {
+    "q": "Concordo que os dados pessoais",
+    "a": [
+      "Sim",
+      "Concordo",
+      "Yes"
+    ],
+    "why": "required to apply"
+  },
+  {
+    "q": "Consentimento - Diversidade",
+    "a": [
+      "Sim",
+      "Concordo",
+      "Autorizo"
+    ],
+    "why": "consent to D&I data processing (answers themselves are declined)"
+  },
+  {
+    "q": "De acordo",
+    "a": "De acordo",
+    "why": "required consent"
+  },
+  {
+    "q": "de acordo em fornecer dados",
+    "a": "Sim",
+    "why": "required consent"
+  },
+  {
+    "q": "interview may be tran",
+    "a": [
+      "Yes",
+      "I agree"
+    ],
+    "why": "transcription consent"
+  },
+  {
+    "q": "Aviso de Privacidade de Dados",
+    "a": [
+      "Aceito os termos",
+      "Sim",
+      "Concordo"
+    ],
+    "why": "required to apply"
+  },
+  {
+    "q": "Company name",
+    "a": "__EMPLOYER__",
+    "why": "current employer on the profile"
+  },
+  {
+    "q": "Nome da empresa",
+    "a": "__EMPLOYER__",
+    "why": "current employer on the profile"
+  },
+  {
+    "q": "gender identity",
+    "a": [
+      "Prefiro não responder",
+      "Prefiro não informar",
+      "Prefiro não declarar",
+      "Não desejo informar",
+      "Prefer not to answer (Prefiro não responder)",
+      "I prefer not to disclose",
+      "I don't wish to answer",
+      "I do not wish to answer",
+      "Prefer not to say",
+      "Prefer not to answer",
+      "I prefer not to answer",
+      "Prefiero no responder",
+      "Prefiero no decir",
+      "Não quero responder",
+      "I'd rather not say",
+      "Decline To Self Identify",
+      "I do not want to answer"
+    ],
+    "why": "voluntary — declined"
+  },
+  {
+    "q": "sexual orientation",
+    "a": [
+      "Prefiro não responder",
+      "Prefiro não informar",
+      "Prefiro não declarar",
+      "Não desejo informar",
+      "Prefer not to answer (Prefiro não responder)",
+      "I prefer not to disclose",
+      "I don't wish to answer",
+      "I do not wish to answer",
+      "Prefer not to say",
+      "Prefer not to answer",
+      "I prefer not to answer",
+      "Prefiero no responder",
+      "Prefiero no decir",
+      "Não quero responder",
+      "I'd rather not say",
+      "Decline To Self Identify",
+      "I do not want to answer"
+    ],
+    "why": "voluntary — declined"
+  },
+  {
+    "q": "race/",
+    "a": [
+      "Prefiro não responder",
+      "Prefiro não informar",
+      "Prefiro não declarar",
+      "Não desejo informar",
+      "Prefer not to answer (Prefiro não responder)",
+      "I prefer not to disclose",
+      "I don't wish to answer",
+      "I do not wish to answer",
+      "Prefer not to say",
+      "Prefer not to answer",
+      "I prefer not to answer",
+      "Prefiero no responder",
+      "Prefiero no decir",
+      "Não quero responder",
+      "I'd rather not say",
+      "Decline To Self Identify",
+      "I do not want to answer"
+    ],
+    "why": "voluntary — declined"
+  },
+  {
+    "q": "racial/ethnic",
+    "a": [
+      "Prefiro não responder",
+      "Prefiro não informar",
+      "Prefiro não declarar",
+      "Não desejo informar",
+      "Prefer not to answer (Prefiro não responder)",
+      "I prefer not to disclose",
+      "I don't wish to answer",
+      "I do not wish to answer",
+      "Prefer not to say",
+      "Prefer not to answer",
+      "I prefer not to answer",
+      "Prefiero no responder",
+      "Prefiero no decir",
+      "Não quero responder",
+      "I'd rather not say",
+      "Decline To Self Identify",
+      "I do not want to answer"
+    ],
+    "why": "voluntary — declined"
+  },
+  {
+    "q": "Which race",
+    "a": [
+      "Prefiro não responder",
+      "Prefiro não informar",
+      "Prefiro não declarar",
+      "Não desejo informar",
+      "Prefer not to answer (Prefiro não responder)",
+      "I prefer not to disclose",
+      "I don't wish to answer",
+      "I do not wish to answer",
+      "Prefer not to say",
+      "Prefer not to answer",
+      "I prefer not to answer",
+      "Prefiero no responder",
+      "Prefiero no decir",
+      "Não quero responder",
+      "I'd rather not say",
+      "Decline To Self Identify",
+      "I do not want to answer"
+    ],
+    "why": "voluntary — declined"
+  },
+  {
+    "q": "Which gender do you self-identify",
+    "a": [
+      "Prefiro não responder",
+      "Prefiro não informar",
+      "Prefiro não declarar",
+      "Não desejo informar",
+      "Prefer not to answer (Prefiro não responder)",
+      "I prefer not to disclose",
+      "I don't wish to answer",
+      "I do not wish to answer",
+      "Prefer not to say",
+      "Prefer not to answer",
+      "I prefer not to answer",
+      "Prefiero no responder",
+      "Prefiero no decir",
+      "Não quero responder",
+      "I'd rather not say",
+      "Decline To Self Identify",
+      "I do not want to answer"
+    ],
+    "why": "voluntary — declined"
+  },
+  {
+    "q": "transgender experience",
+    "a": [
+      "I don't wish to answer",
+      "Prefer not to say"
+    ],
+    "why": "voluntary — declined"
+  },
+  {
+    "q": "pedimos o seu consentimento para usar uma solução",
+    "a": [
+      "Yes",
+      "Sim"
+    ],
+    "why": "consent to AI-assisted screening, as with interview transcription"
+  },
+  {
+    "q": "may use AI tools to assist in the application",
+    "a": [
+      "Yes"
+    ],
+    "why": "acknowledgement required to apply"
+  },
+  {
+    "q": "We encourage AI on the technical work",
+    "a": [
+      "Acknowledge"
+    ],
+    "why": "acknowledgement of the AI-use policy"
+  },
+  {
+    "q": "Which certifications do you hold",
+    "a": "__CERTS__",
+    "why": "certifications related to this posting only"
+  },
+  {
+    "q": "list any relevant certifications",
+    "a": "__CERTS__",
+    "why": "certifications related to this posting only"
+  },
+  {
+    "q": "Quais certificações você possui",
+    "a": "__CERTS__",
+    "why": "certificações relacionadas à vaga, só essas"
+  },
+  {
+    "q": "Informe suas certificações",
+    "a": "__CERTS__",
+    "why": "certificações relacionadas à vaga, só essas"
+  },
+  {
+    "q": "referred to this position by a senior leader",
+    "a": [
+      "No"
+    ],
+    "why": "never a referral"
+  },
+  {
+    "q": "deficiência/neurodiversidade",
+    "a": [
+      "Prefiro não responder",
+      "Prefiro não informar",
+      "Prefiro não declarar",
+      "Não desejo informar",
+      "Prefer not to answer (Prefiro não responder)",
+      "I prefer not to disclose",
+      "I don't wish to answer",
+      "I do not wish to answer",
+      "Prefer not to say",
+      "Prefer not to answer",
+      "I prefer not to answer",
+      "Prefiero no responder",
+      "Prefiero no decir",
+      "Não quero responder",
+      "I'd rather not say",
+      "Decline To Self Identify",
+      "I do not want to answer"
+    ],
+    "why": "neurodivergence not stated — declined"
+  },
+  {
+    "q": "disability/neurodiversity",
+    "a": [
+      "Prefiro não responder",
+      "Prefiro não informar",
+      "Prefiro não declarar",
+      "Não desejo informar",
+      "Prefer not to answer (Prefiro não responder)",
+      "I prefer not to disclose",
+      "I don't wish to answer",
+      "I do not wish to answer",
+      "Prefer not to say",
+      "Prefer not to answer",
+      "I prefer not to answer",
+      "Prefiero no responder",
+      "Prefiero no decir",
+      "Não quero responder",
+      "I'd rather not say",
+      "Decline To Self Identify",
+      "I do not want to answer"
+    ],
+    "why": "neurodivergence not stated — declined"
+  },
+  {
+    "q": "participou de outro processo seletivo",
+    "a": "__APPLIED_BEFORE__",
+    "why": "never applied himself; Yes only after the pipeline sent one there"
+  },
+  {
+    "q": "participated in a hiring process",
+    "a": "__APPLIED_BEFORE__",
+    "why": "never applied himself; Yes only after the pipeline sent one there"
+  },
+  {
+    "q": "processo seletivo conosco",
+    "a": "__APPLIED_BEFORE__",
+    "why": "never applied himself; Yes only after the pipeline sent one there"
+  },
+  {
+    "q": "nível de senioridade",
+    "a": "__SENIORITY__",
+    "why": "stated in onboarding: senior in IT, Pleno in IAM, junior in everything else"
+  },
+  {
+    "q": "classificaria sua senioridade",
+    "a": "__SENIORITY__",
+    "why": "stated in onboarding: senior in IT, Pleno in IAM, junior in everything else"
+  },
+  {
+    "q": "seniority level",
+    "a": "__SENIORITY__",
+    "why": "stated in onboarding: senior in IT, Pleno in IAM, junior in everything else"
+  },
+  {
+    "q": "level of seniority",
+    "a": "__SENIORITY__",
+    "why": "stated in onboarding: senior in IT, Pleno in IAM, junior in everything else"
+  },
+  {
+    "q": "Qual é o seu CPF",
+    "a": "__CPF__",
+    "why": "from .env, formatted as the form asks"
+  }
+]

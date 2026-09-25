@@ -1,0 +1,9 @@
+claims:
+  - id: no-source
+    employer: null
+    claim: Something
+    domains: [security]
+    skills: []
+    metric: null
+    scope: null
+    strength: 3

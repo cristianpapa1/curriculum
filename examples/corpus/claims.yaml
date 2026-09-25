@@ -1,0 +1,30 @@
+# Career corpus — atomic evidence claims (TEMPLATE)
+#
+# THE CONTRACT: every `claim` and every `variants` entry states something
+# traceable to `source`, which quotes your original CV or another verifiable
+# artifact. Variants may re-emphasise, re-order or re-word. Variants may NOT add
+# a fact, a number, a technology or a scope that `source` does not support. The
+# anti-fabrication gate (src/position/antifab.ts) enforces this mechanically
+# before any submission.
+#
+# Usually 25-45 claims — one per concrete achievement. A worked set covering
+# every angle is test/fixtures/corpus/claims.yaml (an invented persona).
+
+claims:
+
+  - id: <stable-kebab-case-id>        # never reused, referenced by i18n.yaml
+    employer: <employment id from profile.yaml, or null for independent work>
+    claim: >                          # the canonical sentence: past tense, verb first
+      <what you did, with the technologies and the scope the source supports>
+    variants:                         # optional: re-emphasis per positioning angle
+      # Angle keys: iam, devops, devsecops, security, compliance, cloud, ai,
+      # observability, fullstack, automation, ai-fullstack, architecture.
+      devops: >
+        <the same achievement, told for that angle — no new facts>
+    domains: [<domain>, <domain>]     # domains[0] is what the claim is most about
+    skills: [<technology>, <technology>]   # each must also be in profile.yaml skills
+    metric: null                      # "250 endpoints", "18%"… when the source states a number
+    scope: <the size or reach of the work, in a few words>
+    strength: 3                       # 1-5 — how differentiating this is in a competitive pool
+    source: >                         # REQUIRED — a verbatim quote from the CV
+      "<the sentence from your CV that this claim rests on>"

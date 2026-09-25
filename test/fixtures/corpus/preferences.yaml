@@ -1,0 +1,55 @@
+# Search and application policy (TEST FIXTURE — the invented persona's choices)
+#
+# These are decisions only the real user can make: where they would work, at what
+# level, for how much, and how much the agent may do without asking. The pipeline
+# reads them through src/corpus/policy.ts — nothing personal is hard-coded, which
+# is exactly what this fixture proves.
+
+# Where place-bound (hybrid/onsite) work needs no move. Empty = any city.
+home:
+  country: Brazil
+  cities: [Belo Horizonte, MG, Grande Belo Horizonte, Contagem, Betim, Nova Lima, Sabará, Santa Luzia, Ribeirão das Neves, Vespasiano, Lagoa Santa]
+
+# Other cities in the home country you would move to. Abroad is decided by the
+# eligibility paths you enable (EU with an EU citizenship; US/UK need a visa).
+relocation:
+  within_country: [Florianópolis, Recife]
+
+# Target level per field — iam, it, security, fullstack, other.
+#   any           every level up to senior
+#   up_to_senior  the same, said explicitly
+#   junior        only titles that say junior / entry level / intern
+# By default this orders the manual index; `prepare --focus-only` also filters.
+targeting:
+  focus_levels: { iam: any, it: up_to_senior, security: junior, fullstack: junior, other: junior }
+
+compensation:
+  # true: answer "negotiable" (or leave blank) where a form allows it.
+  # false: always state the low anchor as a number.
+  prefer_avoidance: false
+  # Ceilings on the low anchor, by region and the posting's level, in the
+  # region's currency and period (brazil: BRL per month).
+  caps:
+    brazil: { mid: 11000, senior: 14000, lead: 14000, principal: 14000 }
+
+# How much the agent may do on its own. `submit --live` refuses to run until
+# onboarding has recorded this.
+#   review  every application is approved by you before it is sent
+#   auto    prepared applications that pass every gate are approved automatically
+autonomy:
+  mode: review
+  # Never more than one application per company per window (spam signals).
+  company_cooldown_hours: 24
+  # Stop the day's run after this many sent applications.
+  daily_cap: 20
+
+mail:
+  company_aliases: { northstarlabs: ["North Star Group"] }
+
+# Standing answers the forms ask again and again.
+answers:
+  how_did_you_hear: LinkedIn    # never "referral" — a recruiter will look for the referrer
+  start_availability: In 2 weeks
+  # Voluntary demographics (gender, race, orientation…) are declined unless
+  # profile.yaml `self_identification` states them.
+  decline_voluntary_demographics: true

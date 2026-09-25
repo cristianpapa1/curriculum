@@ -1,0 +1,294 @@
+# Claim translations — Portuguese (pt-BR) and Spanish (es).
+#
+# Keyed by claim id. Each translation renders the claim's CANONICAL text; angle
+# variants stay English-only for now, so a localized document still gets the
+# angle's SELECTION and ORDERING (which is most of the value) while reading in
+# one consistent voice.
+#
+# HARD RULE, enforced in src/render/cv.ts: if any claim selected for a document
+# lacks a translation for the target language, the ENTIRE document falls back to
+# English. A half-translated CV reads as broken and is worse than an English one.
+#
+# Numbers and technology names are never translated — checkTranslationIntegrity()
+# in src/render/locale.ts asserts they survive unchanged.
+
+translations:
+
+  claim-idp-consolidation:
+    pt: >
+      Consolidou três diretórios separados em um único tenant do Microsoft Entra ID
+      com mais de 900+ contas, com um único processo de entrada, movimentação e
+      saída para toda a empresa.
+    es: >
+      Consolidó tres directorios separados en un único tenant de Microsoft Entra ID
+      con más de 900+ cuentas, con un único proceso de alta, cambio y baja para toda
+      la empresa.
+
+  claim-access-reviews:
+    pt: >
+      Conduz revisões trimestrais de acesso em 40 aplicações SaaS, com evidências
+      exportadas para os auditores e exceções de menor privilégio acompanhadas até
+      o encerramento.
+    es: >
+      Ejecuta revisiones trimestrales de acceso en 40 aplicaciones SaaS, con
+      evidencias exportadas para los auditores y excepciones de menor privilegio
+      seguidas hasta su cierre.
+
+  claim-rbac-terraform:
+    pt: >
+      Definiu o RBAC de AWS e Azure como módulos Terraform, de modo que toda
+      mudança de papel passa por revisão em pull request em vez de ser clicada no
+      console.
+    es: >
+      Definió el RBAC de AWS y Azure como módulos Terraform, de modo que todo
+      cambio de rol se revisa en un pull request en lugar de hacerse a mano en la
+      consola.
+
+  claim-mfa-rollout:
+    pt: >
+      Implantou autenticação multifator e acesso condicional para mais de 900+
+      contas sem interrupção de serviço, reduzindo as exceções a zero.
+    es: >
+      Implantó autenticación multifactor y acceso condicional para más de 900+
+      cuentas sin interrupción del servicio, reduciendo las excepciones a cero.
+
+  claim-onboarding-sops:
+    pt: >
+      Escreveu os procedimentos operacionais de admissão e desligamento seguidos
+      pela central de serviços, cobrindo contas, dispositivos e revogação de acesso.
+    es: >
+      Redactó los procedimientos operativos de alta y baja que sigue la mesa de
+      servicio, cubriendo cuentas, dispositivos y revocación de accesos.
+
+  claim-endpoint-fleet:
+    pt: >
+      Mantém a conformidade de patches e configuração em 600 endpoints, incluindo
+      uma frota BYOD sob política gerenciada.
+    es: >
+      Mantiene el cumplimiento de parches y configuración en 600 endpoints,
+      incluida una flota BYOD bajo política gestionada.
+
+  claim-incident-runbooks:
+    pt: >
+      Escreveu os runbooks de resposta a incidentes e conduziu as revisões
+      pós-incidente, transformando cada incidente em uma correção acompanhada em
+      vez de uma repetição.
+    es: >
+      Redactó los runbooks de respuesta a incidentes y dirigió las revisiones
+      posteriores, convirtiendo cada incidente en una corrección con seguimiento en
+      lugar de una repetición.
+
+  claim-siem-detection:
+    pt: >
+      Construiu regras de detecção em Elasticsearch para eventos de identidade e
+      endpoint, de forma que rajadas de autenticação falha e novas concessões de
+      administrador geram alerta.
+    es: >
+      Construyó reglas de detección en Elasticsearch para eventos de identidad y
+      endpoint, de modo que las ráfagas de autenticación fallida y las nuevas
+      concesiones de administrador generan alerta.
+
+  claim-iso27001-certification:
+    pt: >
+      Liderou a implementação da ISO 27001 da análise de lacunas até a
+      certificação: a declaração de aplicabilidade, os controles e as evidências
+      exigidas pela auditoria.
+    es: >
+      Lideró la implementación de ISO 27001 desde el análisis de brechas hasta la
+      certificación: la declaración de aplicabilidad, los controles y las
+      evidencias que exigió la auditoría.
+
+  claim-vendor-risk:
+    pt: >
+      Criou a avaliação de risco de fornecedores pela qual passa toda nova compra
+      de SaaS, pontuando acesso a dados e condições de saída antes da assinatura do
+      contrato.
+    es: >
+      Creó la evaluación de riesgo de proveedores por la que pasa cada nueva compra
+      de SaaS, puntuando el acceso a datos y las condiciones de salida antes de
+      firmar el contrato.
+
+  claim-terraform-modules:
+    pt: >
+      Escreveu os módulos Terraform reutilizáveis que as equipes de engenharia usam
+      para redes, bancos de dados e papéis de IAM, substituindo pilhas copiadas e
+      coladas.
+    es: >
+      Escribió los módulos Terraform reutilizables que los equipos de ingeniería
+      usan para redes, bases de datos y roles de IAM, sustituyendo las pilas
+      copiadas y pegadas.
+
+  claim-kubernetes-migration:
+    pt: >
+      Migrou os serviços de aplicação de máquinas virtuais gerenciadas manualmente
+      para Kubernetes, com implantações e reversões que não exigem mais janela de
+      manutenção.
+    es: >
+      Migró los servicios de aplicación desde máquinas virtuales gestionadas a mano
+      hacia Kubernetes, con despliegues y reversiones que ya no requieren ventana de
+      mantenimiento.
+
+  claim-cicd-pipelines:
+    pt: >
+      Construiu os pipelines em GitHub Actions que testam, empacotam e implantam os
+      serviços, reduzindo uma liberação de tarefa noturna agendada a um merge.
+    es: >
+      Construyó los pipelines en GitHub Actions que prueban, compilan y despliegan
+      los servicios, reduciendo una liberación de tarea nocturna programada a un
+      merge.
+
+  claim-pipeline-security-scanning:
+    pt: >
+      Adicionou varredura de dependências e de contêineres ao pipeline de entrega,
+      com um limite de severidade que quebra o build em vez de abrir um chamado.
+    es: >
+      Añadió escaneo de dependencias y de contenedores al pipeline de entrega, con
+      un umbral de severidad que rompe el build en lugar de abrir un ticket.
+
+  claim-secrets-management:
+    pt: >
+      Moveu os segredos das aplicações de arquivos de ambiente para o HashiCorp
+      Vault, com credenciais de curta duração e rotação programada.
+    es: >
+      Trasladó los secretos de las aplicaciones desde archivos de entorno a
+      HashiCorp Vault, con credenciales de corta duración y rotación programada.
+
+  claim-image-hardening:
+    pt: >
+      Reconstruiu as imagens base de contêiner sobre distribuições mínimas e
+      versões fixadas, removendo a maior parte das vulnerabilidades conhecidas
+      reportadas pelo scanner.
+    es: >
+      Reconstruyó las imágenes base de contenedor sobre distribuciones mínimas y
+      versiones fijadas, eliminando la mayor parte de las vulnerabilidades conocidas
+      que reportaba el escáner.
+
+  claim-observability-stack:
+    pt: >
+      Construiu a plataforma de Prometheus e Grafana usada pelas equipes, com
+      painéis por serviço e alertas que nomeiam o responsável.
+    es: >
+      Construyó la plataforma de Prometheus y Grafana que usan los equipos, con
+      paneles por servicio y alertas que nombran al responsable.
+
+  claim-slo-alerting:
+    pt: >
+      Substituiu alertas por limite fixo por objetivos de nível de serviço, de modo
+      que o acionamento segue o orçamento de erro e não cada pico transitório.
+    es: >
+      Sustituyó las alertas de umbral fijo por objetivos de nivel de servicio, de
+      modo que la guardia sigue el presupuesto de error y no cada pico transitorio.
+
+  claim-log-cost-reduction:
+    pt: >
+      Reduziu em 42% o gasto de armazenamento de logs por meio de amostragem de
+      eventos de depuração e retenção em camadas, sem perder os campos usados nas
+      investigações.
+    es: >
+      Redujo en 42% el gasto de almacenamiento de logs mediante muestreo de eventos
+      de depuración y retención por niveles, sin perder los campos que se usan en
+      las investigaciones.
+
+  claim-landing-zone:
+    pt: >
+      Desenhou a landing zone multi-conta — divisão de contas, segmentação de rede
+      e IAM de base — a partir da qual os novos ambientes são criados.
+    es: >
+      Diseñó la landing zone multicuenta — división de cuentas, segmentación de red
+      e IAM de base — a partir de la cual se crean los nuevos entornos.
+
+  claim-cloud-cost:
+    pt: >
+      Reduziu em 31% o gasto de nuvem redimensionando cargas de trabalho e
+      programando o desligamento de ambientes fora de produção, sem mexer na
+      capacidade de produção.
+    es: >
+      Redujo en 31% el gasto de nube redimensionando cargas de trabajo y programando
+      el apagado de entornos fuera de producción, sin tocar la capacidad de
+      producción.
+
+  claim-internal-portal:
+    pt: >
+      Construiu de ponta a ponta o portal interno de solicitação de acesso — front
+      end em React, serviço em FastAPI, PostgreSQL — para que os pedidos sejam
+      aprovados em um só lugar e registrados para auditoria.
+    es: >
+      Construyó de extremo a extremo el portal interno de solicitud de acceso —
+      front end en React, servicio en FastAPI, PostgreSQL — para que las solicitudes
+      se aprueben en un solo lugar y queden registradas para auditoría.
+
+  claim-erp-integrations:
+    pt: >
+      Escreveu as integrações entre o ERP e os sistemas das transportadoras,
+      substituindo as planilhas que a equipe do armazém redigitava toda manhã.
+    es: >
+      Escribió las integraciones entre el ERP y los sistemas de los transportistas,
+      sustituyendo las planillas que el equipo del almacén volvía a teclear cada
+      mañana.
+
+  claim-warehouse-automation:
+    pt: >
+      Automatizou a conciliação diária de estoque do armazém, transformando uma
+      contagem manual de três horas em uma rotina agendada com relatório de
+      exceções.
+    es: >
+      Automatizó la conciliación diaria de inventario del almacén, convirtiendo un
+      conteo manual de tres horas en una rutina programada con informe de
+      excepciones.
+
+  claim-follow-the-sun-support:
+    pt: >
+      Operou a central de serviços cobrindo os horários do Brasil, dos Estados
+      Unidos e da Europa, com protocolo escrito de repasse dos incidentes abertos
+      entre as regiões.
+    es: >
+      Operó la mesa de servicio cubriendo los horarios de Brasil, Estados Unidos y
+      Europa, con un protocolo escrito de traspaso de los incidentes abiertos entre
+      regiones.
+
+  claim-mcp-agent-tooling:
+    pt: >
+      Construiu um servidor MCP que expõe os runbooks operacionais como ferramentas
+      tipadas, para que um assistente consulte o inventário e abra um chamado sem
+      acesso ao shell.
+    es: >
+      Construyó un servidor MCP que expone los runbooks operativos como herramientas
+      tipadas, para que un asistente consulte el inventario y abra un ticket sin
+      acceso al shell.
+
+  claim-ai-triage-assistant:
+    pt: >
+      Entregou um assistente de triagem para a central de serviços que redige a
+      primeira resposta a partir de chamados anteriores, com uma pessoa aprovando
+      cada resposta antes do envio.
+    es: >
+      Entregó un asistente de triaje para la mesa de servicio que redacta la primera
+      respuesta a partir de tickets anteriores, con una persona aprobando cada
+      respuesta antes del envío.
+
+  claim-ai-guardrails:
+    pt: >
+      Escreveu as regras de segurança sob as quais o assistente opera — nenhum dado
+      de cliente nos prompts, nenhuma ação sem confirmação, cada chamada registrada.
+    es: >
+      Redactó las reglas de seguridad bajo las que opera el asistente — ningún dato
+      de cliente en los prompts, ninguna acción sin confirmación, cada llamada
+      registrada.
+
+  claim-open-source-tool:
+    pt: >
+      Publica uma ferramenta de linha de comando de código aberto que verifica
+      planos Terraform em busca de declarações de IAM permissivas antes da
+      aplicação.
+    es: >
+      Publica una herramienta de línea de comandos de código abierto que revisa
+      planes Terraform en busca de declaraciones de IAM permisivas antes de
+      aplicarlos.
+
+  claim-personal-site:
+    pt: >
+      Mantém um site pessoal e seus textos sobre prática de infraestrutura,
+      publicado a partir do próprio pipeline.
+    es: >
+      Mantiene un sitio personal y sus textos sobre práctica de infraestructura,
+      publicado desde su propio pipeline.
