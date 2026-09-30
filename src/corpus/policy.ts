@@ -45,6 +45,17 @@ export interface Policy {
     caps: Record<string, Record<string, number>>;
   };
   /**
+   * How the candidate wants their evidence weighted. Both default to 1 (no
+   * preference). Above 1 they pull a kind of claim toward the front of every
+   * document, without ever inventing one: selection changes, the facts do not.
+   */
+  positioning: {
+    /** Claims from the employer marked `current: true` in profile.yaml. */
+    preferCurrentEmployer: number;
+    /** Claims with no employer — the candidate's own shipped work. */
+    preferIndependentWork: number;
+  };
+  /**
    * Other names a company sends mail under, keyed by the name in the ledger
    * (e.g. a company renamed after the posting was written). Used only to match
    * a security-code email to the application that triggered it.
@@ -59,6 +70,7 @@ const EMPTY: Policy = {
   focusLevels: {},
   ownLevels: {},
   compensation: { preferAvoidance: true, caps: {} },
+  positioning: { preferCurrentEmployer: 1, preferIndependentWork: 1 },
   mailCompanyAliases: {},
 };
 
@@ -115,6 +127,10 @@ export function loadPolicy(dir: string = CORPUS_DIR): Policy {
     compensation: {
       preferAvoidance: prefs.compensation?.prefer_avoidance ?? EMPTY.compensation.preferAvoidance,
       caps: prefs.compensation?.caps ?? {},
+    },
+    positioning: {
+      preferCurrentEmployer: Number(prefs.positioning?.prefer_current_employer ?? 1) || 1,
+      preferIndependentWork: Number(prefs.positioning?.prefer_independent_work ?? 1) || 1,
     },
     mailCompanyAliases: prefs.mail?.company_aliases ?? {},
   };

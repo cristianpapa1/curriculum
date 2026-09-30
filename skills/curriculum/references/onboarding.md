@@ -97,6 +97,14 @@ Start availability ("In 2 weeks"), default "how did you hear" (never
 "referral"). Add form-wide answers to `Corpus/form-answers.json` only when every
 form asking that question should get the same answer.
 
+## 10b. What to lead with → `preferences.yaml` `positioning`
+
+Ask what they want in front of a reader: the role they hold now, or the work
+they shipped themselves. `prefer_current_employer` and
+`prefer_independent_work` (1 = no preference) reorder the evidence in every CV
+and letter. They never add a claim — a portfolio the corpus does not record
+cannot be weighted into a document, so record the projects as claims first.
+
 ## 11. Identifiers (optional) → `.env` only
 
 National ID (`APPLICANT_CPF` for Brazilian forms), postal address

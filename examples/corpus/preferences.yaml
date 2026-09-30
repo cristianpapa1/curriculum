@@ -53,6 +53,13 @@ autonomy:
 # mail:
 #   company_aliases: { oldname: ["New Name"] }
 
+# How your evidence is weighted in every document. 1 = no preference. Above 1
+# pulls a kind of claim toward the front — it reorders what you already have and
+# can never introduce a claim the corpus does not hold.
+# positioning:
+#   prefer_current_employer: 1.6   # the role you hold now
+#   prefer_independent_work: 1.8   # your own shipped projects
+
 # Standing answers the forms ask again and again.
 answers:
   how_did_you_hear: <where you actually found the posting>   # never "referral"

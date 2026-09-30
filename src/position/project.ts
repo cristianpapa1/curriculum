@@ -15,6 +15,7 @@
 import type { Claim, Corpus } from "../corpus/types.ts";
 import type { Angle } from "./angles.ts";
 import { resolveAngle } from "./angles.ts";
+import { loadPolicy } from "../corpus/policy.ts";
 
 export interface ProjectedClaim {
   claim: Claim;
@@ -131,6 +132,12 @@ export function project(
     lang?: "en" | "pt" | "es";
     /** Per-claim bonus from a specific posting — see `requirementBoost`. */
     claimBoost?: Map<string, number>;
+    /**
+     * The candidate's own emphasis. Defaults to `positioning` in
+     * preferences.yaml; passed explicitly when projecting a corpus that is not
+     * the one CORPUS_DIR points at.
+     */
+    positioning?: { preferCurrentEmployer: number; preferIndependentWork: number };
   } = {},
 ): Projection {
   const angle = resolveAngle(angleInput);
@@ -160,6 +167,19 @@ export function project(
 
   if (opts.claimBoost) {
     for (const p of projected) p.score += opts.claimBoost.get(p.claim.id) ?? 0;
+  }
+
+  // The candidate's own emphasis (preferences.yaml `positioning`): pull the
+  // current role and independently shipped work toward the front. It reorders
+  // evidence that already exists — a claim the corpus does not hold cannot be
+  // weighted into a document.
+  const { preferCurrentEmployer, preferIndependentWork } = opts.positioning ?? loadPolicy().positioning;
+  if (preferCurrentEmployer !== 1 || preferIndependentWork !== 1) {
+    const currentEmployer = corpus.profile.employment.find((e) => e.current)?.id ?? null;
+    for (const p of projected) {
+      if (!p.claim.employer) p.score *= preferIndependentWork;
+      else if (currentEmployer && p.claim.employer === currentEmployer) p.score *= preferCurrentEmployer;
+    }
   }
 
   // Deterministic: score desc, then id asc so output never reorders run to run.

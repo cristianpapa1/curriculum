@@ -13,6 +13,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { loadCorpus } from "../src/corpus/load.ts";
 import { prepareApplications } from "../src/pipeline/prepare.ts";
+import { project } from "../src/position/project.ts";
 
 const corpus = await loadCorpus();
 
@@ -101,5 +102,43 @@ describe("the per-company cap counts what was sent", () => {
     );
     expect(result.skipped.length).toBe(1);
     expect(result.skipped[0]!.reason).toMatch(/per-company cap/);
+  });
+});
+
+describe("the candidate's own emphasis (preferences.yaml positioning)", () => {
+  const NEUTRAL = { preferCurrentEmployer: 1, preferIndependentWork: 1 };
+
+  test("independent work can be pulled forward", () => {
+    const neutral = project(corpus, "devops", { limit: 40, positioning: NEUTRAL }).claims;
+    const weighted = project(corpus, "devops", {
+      limit: 40,
+      positioning: { preferCurrentEmployer: 1, preferIndependentWork: 3 },
+    }).claims;
+
+    const firstOwn = (list: typeof neutral) => list.findIndex((p) => !p.claim.employer);
+    expect(firstOwn(weighted)).toBeLessThan(firstOwn(neutral));
+  });
+
+  test("the current employer can be pulled forward", () => {
+    const current = corpus.profile.employment.find((e) => e.current)!.id;
+    const neutral = project(corpus, "fullstack", { limit: 40, positioning: NEUTRAL }).claims;
+    const weighted = project(corpus, "fullstack", {
+      limit: 40,
+      positioning: { preferCurrentEmployer: 3, preferIndependentWork: 1 },
+    }).claims;
+
+    const countIn = (list: typeof neutral, n: number) =>
+      list.slice(0, n).filter((p) => p.claim.employer === current).length;
+    expect(countIn(weighted, 6)).toBeGreaterThanOrEqual(countIn(neutral, 6));
+    expect(countIn(weighted, 6)).toBeGreaterThan(0);
+  });
+
+  test("ANTI: weighting never adds a claim the corpus does not hold", () => {
+    const neutral = project(corpus, "devops", { limit: 100, positioning: NEUTRAL }).claims;
+    const weighted = project(corpus, "devops", {
+      limit: 100,
+      positioning: { preferCurrentEmployer: 5, preferIndependentWork: 5 },
+    }).claims;
+    expect(new Set(weighted.map((p) => p.claim.id))).toEqual(new Set(neutral.map((p) => p.claim.id)));
   });
 });
