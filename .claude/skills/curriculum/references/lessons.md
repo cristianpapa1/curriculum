@@ -23,6 +23,13 @@ here so an agent recognises the pattern when a new form shows it.
 - **Employment and education blocks share labels** ("Start date month"). Fill
   them by field id (`start-date-month-0` vs `start-month--0`), never by label.
 
+- **The form can be in an iframe.** Several companies serve the Greenhouse
+  form inside their own careers page. A reader that only walks the top document
+  reports a form with no questions while the filler is filling it — probe every
+  frame whose URL looks like a board.
+- **A time-zone list may not contain yours.** One offered CET, GMT, ET, CT, MT,
+  PT and "Other": for anyone in South America the true answer is "Other".
+
 ## Choosing answers
 
 - **A negated option must not satisfy the word it negates.** "Fluent" matched
