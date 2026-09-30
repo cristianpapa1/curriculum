@@ -468,3 +468,52 @@ describe('greenhouse live integration', () => {
     60_000,
   );
 });
+
+describe('reading a board token off a careers page', () => {
+  // The patterns resolve.ts looks for, exercised against the shapes a real
+  // careers page uses: a link, an iframe, and an API call in the page's JS.
+  const BOARD_IN_PAGE: [RegExp, string][] = [
+    [/job-boards\.greenhouse\.io\/([a-z0-9_-]{2,40})/gi, 'greenhouse'],
+    [/boards\.greenhouse\.io\/(?:embed\/job_board\?for=)?([a-z0-9_-]{2,40})/gi, 'greenhouse'],
+    [/greenhouse\.io\/embed\/job_board\?for=([a-z0-9_-]{2,40})/gi, 'greenhouse'],
+    [/jobs\.lever\.co\/([a-z0-9_-]{2,40})/gi, 'lever'],
+    [/jobs\.ashbyhq\.com\/([a-z0-9_-]{2,40})/gi, 'ashby'],
+    [/apply\.workable\.com\/([a-z0-9_-]{2,40})/gi, 'workable'],
+    [/careers\.smartrecruiters\.com\/([A-Za-z0-9_-]{2,40})/gi, 'smartrecruiters'],
+  ];
+
+  const find = (html: string) => {
+    const out: { ats: string; token: string }[] = [];
+    for (const [pattern, ats] of BOARD_IN_PAGE) {
+      pattern.lastIndex = 0;
+      for (const m of html.matchAll(pattern)) out.push({ ats, token: m[1]! });
+    }
+    return out;
+  };
+
+  test('finds the token in a link, an iframe and an embedded API call', () => {
+    expect(find('<a href="https://job-boards.greenhouse.io/acmerobotics/jobs/123">Open roles</a>')[0])
+      .toEqual({ ats: 'greenhouse', token: 'acmerobotics' });
+    expect(find('<iframe src="https://boards.greenhouse.io/embed/job_board?for=acmehq"></iframe>')[0])
+      .toEqual({ ats: 'greenhouse', token: 'acmehq' });
+    expect(find('fetch("https://jobs.lever.co/northstar-labs")')[0])
+      .toEqual({ ats: 'lever', token: 'northstar-labs' });
+    expect(find('<a href="https://jobs.ashbyhq.com/aurora">Careers</a>')[0])
+      .toEqual({ ats: 'ashby', token: 'aurora' });
+    expect(find('<a href="https://apply.workable.com/vanta-peak/">Jobs</a>')[0])
+      .toEqual({ ats: 'workable', token: 'vanta-peak' });
+    expect(find('<a href="https://careers.smartrecruiters.com/AcmeGroup">Jobs</a>')[0])
+      .toEqual({ ats: 'smartrecruiters', token: 'AcmeGroup' });
+  });
+
+  test('REGRESSION: a token spelled differently from the company name is still found', () => {
+    // The case guessing cannot solve: the board token is not derivable from
+    // "Acme Robotics" — only the page knows it is "getacme".
+    expect(find('<a href="https://job-boards.greenhouse.io/getacme/jobs/9">Careers</a>')[0])
+      .toEqual({ ats: 'greenhouse', token: 'getacme' });
+  });
+
+  test('a page naming no board yields nothing', () => {
+    expect(find('<h1>Work with us</h1><p>Email jobs@acme.example</p>')).toEqual([]);
+  });
+});

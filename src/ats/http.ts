@@ -125,6 +125,34 @@ export async function fetchJson(url: string): Promise<unknown> {
     : new AtsError(`request failed: ${describe(lastError)}`, url);
 }
 
+/**
+ * Fetch `url` and return its body as text.
+ *
+ * Used to read a company's own careers page, which is where the truth about
+ * which board it uses actually lives. Same timeout, retry and per-host
+ * serialization as {@link fetchJson}.
+ */
+export async function fetchText(url: string): Promise<string> {
+  let lastError: unknown;
+
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt += 1) {
+    try {
+      return await runSerializedPerHost(url, async () => {
+        const response = await requestOnce(url, 'text/html,application/xhtml+xml');
+        return await response.text();
+      });
+    } catch (error) {
+      lastError = error;
+      if (!isRetryable(error) || attempt === MAX_RETRIES) break;
+      await sleep(RETRY_BACKOFF_MS);
+    }
+  }
+
+  throw lastError instanceof AtsError
+    ? lastError
+    : new AtsError(`request failed: ${describe(lastError)}`, url);
+}
+
 /** Narrow an unknown value to a plain object. */
 export function asRecord(value: unknown): Record<string, unknown> | null {
   return typeof value === 'object' && value !== null && !Array.isArray(value)

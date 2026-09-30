@@ -15,11 +15,13 @@
  *   bun run scripts/resolve.ts --limit 100
  *   bun run scripts/resolve.ts --limit 100 --offset 100
  *   bun run scripts/resolve.ts --all          # no limit; long and chatty
+ *   bun run scripts/resolve.ts --retry-failed # companies an earlier run missed
  */
 
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { adapters } from "../src/ats/index.ts";
+import { fetchText } from "../src/ats/http.ts";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const REGISTRY = join(HERE, "..", "Companies", "registry.yaml");
@@ -89,7 +91,83 @@ function candidateTokens(e: Entry): string[] {
 /** Probe order: cheapest and most common first. */
 const PROBE_ORDER = ["greenhouse", "ashby", "lever", "workable", "smartrecruiters"];
 
+/**
+ * How each board appears in the HTML of a company's own careers page — a link,
+ * an iframe src, or an API call in the page's JavaScript.
+ *
+ * This is the authoritative source and guessing is not: of the companies whose
+ * derived tokens found nothing, most were not missing a board but spelling it
+ * differently ("acme-inc", "acmehq", "GetAcme"). The page names it exactly.
+ */
+const BOARD_IN_PAGE: [RegExp, string][] = [
+  [/job-boards\.greenhouse\.io\/([a-z0-9_-]{2,40})/gi, "greenhouse"],
+  [/boards\.greenhouse\.io\/(?:embed\/job_board\?for=)?([a-z0-9_-]{2,40})/gi, "greenhouse"],
+  [/greenhouse\.io\/embed\/job_board\?for=([a-z0-9_-]{2,40})/gi, "greenhouse"],
+  [/api\.greenhouse\.io\/v1\/boards\/([a-z0-9_-]{2,40})/gi, "greenhouse"],
+  [/jobs\.lever\.co\/([a-z0-9_-]{2,40})/gi, "lever"],
+  [/api\.lever\.co\/v0\/postings\/([a-z0-9_-]{2,40})/gi, "lever"],
+  [/jobs\.ashbyhq\.com\/([a-z0-9_-]{2,40})/gi, "ashby"],
+  [/api\.ashbyhq\.com\/posting-api\/job-board\/([a-z0-9_-]{2,40})/gi, "ashby"],
+  [/apply\.workable\.com\/([a-z0-9_-]{2,40})/gi, "workable"],
+  [/([a-z0-9_-]{2,40})\.workable\.com/gi, "workable"],
+  [/careers\.smartrecruiters\.com\/([A-Za-z0-9_-]{2,40})/gi, "smartrecruiters"],
+  [/api\.smartrecruiters\.com\/v1\/companies\/([A-Za-z0-9_-]{2,40})/gi, "smartrecruiters"],
+];
+
+/** Board tokens named by a company's careers page, best first. */
+async function boardsNamedByPage(e: Entry): Promise<{ ats: string; token: string }[]> {
+  if (!e.url) return [];
+  let html: string;
+  try {
+    html = await fetchText(e.url);
+  } catch {
+    // A careers page that will not load is not an error worth reporting: the
+    // token guesses below still get their turn.
+    return [];
+  }
+
+  const found: { ats: string; token: string }[] = [];
+  const seen = new Set<string>();
+  for (const [pattern, ats] of BOARD_IN_PAGE) {
+    pattern.lastIndex = 0;
+    for (const m of html.matchAll(pattern)) {
+      const token = (m[1] ?? "").trim();
+      if (!token || VENDOR_TOKENS.has(token.toLowerCase())) continue;
+      const key = `${ats}:${token}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      found.push({ ats, token });
+    }
+  }
+  return found;
+}
+
 async function resolveOne(e: Entry): Promise<Entry> {
+  // 1. What the company's own careers page says. Verified before it is trusted:
+  //    a page can link a board that is empty or belongs to a parent company.
+  for (const { ats, token } of await boardsNamedByPage(e)) {
+    const adapter = adapters[ats];
+    if (!adapter) continue;
+    try {
+      const jobs = await adapter.fetchJobs(token);
+      if (jobs.length > 0) {
+        return {
+          ...e,
+          ats,
+          atsToken: token,
+          atsSupported: true,
+          jobsTotal: jobs.length,
+          lastScanned: new Date().toISOString(),
+          resolveAttemptedAt: new Date().toISOString(),
+          notes: [e.notes, "board found on the careers page"].filter(Boolean).join("; "),
+        };
+      }
+    } catch {
+      // Same as below: a failed probe is information, not an error.
+    }
+  }
+
+  // 2. Tokens derived from the name and domain.
   const tokens = candidateTokens(e);
 
   for (const token of tokens) {
@@ -253,8 +331,12 @@ async function main() {
   // --match narrows the batch to companies whose name, domain or URL contains
   // a substring, so a freshly-added region can be resolved before the backlog.
   const match = flag("match", "")?.toLowerCase() ?? "";
+  // --retry-failed gives companies that a previous run could not resolve one
+  // more turn. Worth it exactly when the strategy changed: reading the careers
+  // page finds tokens that guessing from the name never could.
+  const retryFailed = process.argv.includes("--retry-failed");
   const pending = all
-    .filter((e) => !e.atsSupported && !e.resolveAttemptedAt)
+    .filter((e) => !e.atsSupported && (retryFailed || !e.resolveAttemptedAt))
     .filter((e) =>
       match === ""
         ? true
