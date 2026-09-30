@@ -15,7 +15,9 @@ a form that broke, a question the CV could not answer, or a site that said no.
 ## What it does
 
 - **Discovers** postings on Greenhouse, Lever, Ashby, SmartRecruiters, Workable
-  and Gupy, from a registry of 1,100+ companies or boards you name.
+  and Gupy, from a registry of 1,100+ companies or boards you name — and takes a
+  posting from anywhere else (a marketplace behind a login, a custom careers app)
+  described in a YAML file.
 - **Filters** by what a recruiter checks first: level, location and visa,
   languages, citizenship or clearance requirements, reserved programmes.
 - **Scores** each posting against your evidence and picks the angle — security,
@@ -123,6 +125,7 @@ statement on the candidate's behalf:
 | SmartRecruiters | ✓ | manual pack — DataDome |
 | Workable | ✓ | automatic, experimental — not yet exercised on a live form |
 | Gupy (Brazil) | ✓ search | manual pack — candidate login |
+| Any other posting | described by hand in a file | manual pack — no board API, no form |
 
 ## Your data
 

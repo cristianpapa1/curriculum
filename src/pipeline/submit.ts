@@ -55,7 +55,7 @@ const DRY_RUN_PROFILE_DIR = process.env.DRYRUN_PROFILE_DIR ?? join(PROJECT_ROOT,
  * the bot protection
  * rather than a fix, so these go to the candidate as manual packs instead.
  */
-export const MANUAL_BOARDS = new Set(["lever", "smartrecruiters", "gupy", "ashby"]);
+export const MANUAL_BOARDS = new Set(["lever", "smartrecruiters", "gupy", "ashby", "manual"]);
 
 /**
  * Voluntary self-identification questions. Group membership is never inferred

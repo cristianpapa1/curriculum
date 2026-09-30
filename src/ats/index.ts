@@ -10,6 +10,7 @@ import { leverAdapter } from './lever.ts';
 import { smartRecruitersAdapter } from './smartrecruiters.ts';
 import { workableAdapter } from './workable.ts';
 import { gupyAdapter } from './gupy.ts';
+import { manualAdapter } from './manual.ts';
 import {
   AtsError,
   type AtsAdapter,
@@ -28,6 +29,8 @@ export const adapters: Record<string, AtsAdapter> = {
   workable: workableAdapter,
   smartrecruiters: smartRecruitersAdapter,
   gupy: gupyAdapter,
+  // Ingest only: there is no board behind it, so detectAts never probes it.
+  manual: manualAdapter,
 };
 
 /**

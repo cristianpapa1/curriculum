@@ -25,7 +25,7 @@ import { withinTargetLevel } from "../src/pipeline/level.ts";
 import { inHomeArea } from "../src/pipeline/eligibility.ts";
 
 const atsArg = process.argv[process.argv.indexOf("--ats") + 1];
-const boards = new Set(process.argv.includes("--ats") && atsArg ? atsArg.split(",") : ["lever", "smartrecruiters", "gupy", "ashby"]);
+const boards = new Set(process.argv.includes("--ats") && atsArg ? atsArg.split(",") : ["lever", "smartrecruiters", "gupy", "ashby", "manual"]);
 const corpus = await loadCorpus();
 const creds = await loadCredentials();
 const id = corpus.profile.identity;
@@ -55,7 +55,9 @@ for (const folder of (await readdir(APPLICATIONS_DIR)).sort()) {
       ? "Gupy applications need a candidate login and a multi-step flow (often with profile tests), so they are submitted by hand."
       : meta.atsType === "ashby"
         ? "Ashby flags automated submissions as possible spam, and its own advice is to switch network or browser — which is bot-protection evasion, so Ashby forms are submitted by hand."
-        : "SmartRecruiters' apply app sits behind DataDome bot protection, so it is submitted by hand.";
+        : meta.atsType === "manual"
+          ? "This posting was described by hand (src/ats/manual.ts): there is no board API and no form the pipeline can fill — only the apply link below. Everything else is prepared."
+          : "SmartRecruiters' apply app sits behind DataDome bot protection, so it is submitted by hand.";
 
   const md = [
     `# Submit by hand — ${meta.company} — ${meta.roleTitle}`,

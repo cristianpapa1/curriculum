@@ -15,7 +15,9 @@ export type AtsType =
   | 'ashby'
   | 'workable'
   | 'smartrecruiters'
-  | 'gupy';
+  | 'gupy'
+  // Not a board: a posting described by hand (src/ats/manual.ts).
+  | 'manual';
 
 /** A job posting normalized into a single shape across every ATS. */
 export interface NormalizedJob {

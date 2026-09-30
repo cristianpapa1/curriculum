@@ -11,7 +11,28 @@ each application under `Applications/<date>_<company>_<role>/` with status
 bun run src/cli.ts prepare --targets greenhouse:acme,ashby:globex   # specific boards
 bun run src/cli.ts prepare --from-registry --registry-limit 60       # boards in Companies/registry.yaml
 bun run src/cli.ts prepare --targets "gupy:<search term>"            # Gupy (Brazil) is search-based
+bun run src/cli.ts prepare --targets manual:Postings/acme-backend.yaml  # a posting with no board
 ```
+
+### A posting on no supported board
+
+A talent marketplace behind a login, a role sent by email, a company with its
+own careers app: write the posting into a file and ingest it like any other.
+`company`, `title` and `url` are required; `location`, `remote`
+(`remote|hybrid|onsite`) and `description` are read the way a board's fields are.
+
+```yaml
+company: Acme
+title: Integrations Engineer
+url: https://acme.example/jobs/integrations   # where the application is made
+location: Remote, LATAM
+remote: remote
+description: |
+  The posting text, requirements included — this is what the scorer reads.
+```
+
+These are never submitted automatically (there is no form to fill), so they
+become manual packs with the CV, letter and every answer prepared.
 
 | Flag | Effect |
 |---|---|

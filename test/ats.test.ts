@@ -375,8 +375,9 @@ describe('isBrazilEligible: explicit location beats description boilerplate', ()
 
 describe('registry', () => {
   test('exposes every adapter, each tagged with its own type', () => {
-    // Gupy (search-based) is the sixth: discovery only, submitted by hand.
-    const expected: AtsType[] = ['greenhouse', 'lever', 'ashby', 'workable', 'smartrecruiters', 'gupy'];
+    // Gupy (search-based) is discovery only, submitted by hand; 'manual' is not
+    // a board at all — a posting described in a file (src/ats/manual.ts).
+    const expected: AtsType[] = ['greenhouse', 'lever', 'ashby', 'workable', 'smartrecruiters', 'gupy', 'manual'];
     expect(Object.keys(adapters).sort()).toEqual([...expected].sort());
     for (const key of expected) {
       expect(adapters[key]?.atsType).toBe(key);
