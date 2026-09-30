@@ -41,3 +41,6 @@ node_modules/
 dist/
 .DS_Store
 Companies/*.bak
+
+# Platform sign-up helper: specific to one marketplace and to this account
+scripts/strider-signup.ts
