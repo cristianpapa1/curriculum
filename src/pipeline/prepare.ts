@@ -209,10 +209,13 @@ export async function prepareApplications(
   candidates.sort((a, b) => b.score.score - a.score.score);
 
   // ── Tailor and file ───────────────────────────────────────────────────
-  // Seed the per-company count with applications already on file.
+  // Seed the per-company count with applications already on file. A withdrawn
+  // one does not count: nothing was sent, so it never spent a slot at that
+  // company — and counting it locked a company out after three closed postings.
   const cap = opts.perCompanyCap ?? 3;
   const perCompany = new Map<string, number>();
   for (const a of await loadApplications(opts.applicationsDir)) {
+    if (a.status === "withdrawn") continue;
     const k = a.company.toLowerCase();
     perCompany.set(k, (perCompany.get(k) ?? 0) + 1);
   }
@@ -220,7 +223,17 @@ export async function prepareApplications(
   for (const { job, score } of candidates) {
     if (result.prepared.length >= opts.limit) break;
     const companyKey = prettyCompany(job.companyToken).toLowerCase();
-    if ((perCompany.get(companyKey) ?? 0) >= cap) continue;
+    const onFile = perCompany.get(companyKey) ?? 0;
+    if (onFile >= cap) {
+      // Reported, not silent: "prepared 0" with no reason sent the operator
+      // looking for a bug in the gates.
+      result.skipped.push({
+        job: job.title,
+        company: job.companyToken,
+        reason: `per-company cap reached (${onFile} on file, cap ${cap}) — raise it with --per-company`,
+      });
+      continue;
+    }
 
     try {
       const prior = await alreadyApplied(job.atsType, job.id, opts.applicationsDir);
