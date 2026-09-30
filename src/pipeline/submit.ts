@@ -1429,6 +1429,12 @@ const VALIDATION = [
   // Captcha verification refused the submission (Lever's invisible hCaptcha).
   // Not retried and never worked around.
   /error verifying your application/i,
+  // Greenhouse's own wording for the same thing: a reCAPTCHA-protected form
+  // answers "There was an error processing your application. Please try again."
+  // with every field filled. Without this the run saw no confirmation and no
+  // error, called the outcome ambiguous, and spent the company's 24h slot on a
+  // refusal it could have named.
+  /error processing your application/i,
   // Anti-spam refusals: nothing was received, and retrying soon makes it worse.
   /flagged as (possible )?spam|couldn.?t submit your application|unusual activity|too many (requests|attempts)/i,
   /this field is required|is required\b|required field/i,

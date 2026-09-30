@@ -205,3 +205,21 @@ describe("captchaChallengeGuard — Lever hCaptcha", () => {
     await page.close();
   });
 });
+
+describe("a captcha-protected form that refuses is a refusal, not an ambiguity", () => {
+  test("REGRESSION: 'There was an error processing your application' is read as refused", async () => {
+    const page = await browser.newPage();
+    await page.setContent(`<form><button type="submit" id="go">Submit application</button></form><script>
+      document.getElementById('go').addEventListener('click', e => {
+        e.preventDefault();
+        document.body.insertAdjacentHTML('beforeend', '<div class=error>There was an error processing your application. Please try again.</div>');
+      });
+    </script>`);
+    const before = await page.innerText("body");
+    await page.click("#go");
+    const out = await awaitSubmissionOutcome(page, before, { polls: 12, pollMs: 1000 });
+    expect(out.ok).toBe(false);
+    expect(out.evidence).toMatch(/refused/);
+    await page.close();
+  }, 45_000);
+});

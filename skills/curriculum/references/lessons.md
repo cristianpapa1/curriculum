@@ -69,6 +69,11 @@ here so an agent recognises the pattern when a new form shows it.
   written never matches the email subject. Keep the rename in
   `preferences.yaml` (`mail.company_aliases`), and accept the single fresh code
   email when nothing names the company.
+- **"There was an error processing your application" is a captcha refusal.**
+  A Greenhouse form behind reCAPTCHA answers that with every field filled. Read
+  as neither a confirmation nor an error it looks ambiguous, and an ambiguous
+  outcome spends the company's 24h slot. Name it: that board becomes manual.
+
 - **Bot protection means stop.** hCaptcha, DataDome and a "flagged as possible
   spam" response are the site saying no to automation. Their own advice —
   change network, browser or device — is evasion. Those boards become manual.
