@@ -114,19 +114,44 @@ const BOARD_IN_PAGE: [RegExp, string][] = [
   [/api\.smartrecruiters\.com\/v1\/companies\/([A-Za-z0-9_-]{2,40})/gi, "smartrecruiters"],
 ];
 
-/** Board tokens named by a company's careers page, best first. */
-async function boardsNamedByPage(e: Entry): Promise<{ ats: string; token: string }[]> {
-  if (!e.url) return [];
+/**
+ * Platforms with no adapter here. Naming them is worth as much as finding a
+ * supported board: it turns "we could not resolve this company" into "this
+ * company hires through Workday", which is a fact about the company, stops the
+ * pointless re-probing, and says plainly what an adapter would have to cover.
+ */
+const UNSUPPORTED_IN_PAGE: [RegExp, string][] = [
+  [/myworkdayjobs\.com|workday\.com\/(?:[a-z-]+\/)?careers/i, "workday"],
+  [/icims\.com/i, "icims"],
+  [/taleo\.net/i, "taleo"],
+  [/successfactors\.(?:com|eu)|sapsf\.(?:com|eu)/i, "successfactors"],
+  [/jobs\.personio\.(?:de|com)|personio-jobs/i, "personio"],
+  [/bamboohr\.com\/(?:jobs|careers)/i, "bamboohr"],
+  [/teamtailor\.com/i, "teamtailor"],
+  [/recruitee\.com/i, "recruitee"],
+  [/jobvite\.com/i, "jobvite"],
+  [/eightfold\.ai|phenompeople\.com|avature\.net/i, "enterprise-suite"],
+  [/gupy\.io/i, "gupy"],
+];
+
+/** What a company's careers page says about where it posts. */
+async function boardsNamedByPage(e: Entry): Promise<{
+  supported: { ats: string; token: string }[];
+  unsupported: string | null;
+}> {
+  const nothing = { supported: [], unsupported: null };
+  if (!e.url) return nothing;
   let html: string;
   try {
     html = await fetchText(e.url);
   } catch {
     // A careers page that will not load is not an error worth reporting: the
-    // token guesses below still get their turn.
-    return [];
+    // token guesses below still get their turn. Large corporate sites answer
+    // 403 or 429 to any bot, and that is their call to make.
+    return nothing;
   }
 
-  const found: { ats: string; token: string }[] = [];
+  const supported: { ats: string; token: string }[] = [];
   const seen = new Set<string>();
   for (const [pattern, ats] of BOARD_IN_PAGE) {
     pattern.lastIndex = 0;
@@ -136,16 +161,19 @@ async function boardsNamedByPage(e: Entry): Promise<{ ats: string; token: string
       const key = `${ats}:${token}`;
       if (seen.has(key)) continue;
       seen.add(key);
-      found.push({ ats, token });
+      supported.push({ ats, token });
     }
   }
-  return found;
+
+  const unsupported = UNSUPPORTED_IN_PAGE.find(([re]) => re.test(html))?.[1] ?? null;
+  return { supported, unsupported };
 }
 
 async function resolveOne(e: Entry): Promise<Entry> {
   // 1. What the company's own careers page says. Verified before it is trusted:
   //    a page can link a board that is empty or belongs to a parent company.
-  for (const { ats, token } of await boardsNamedByPage(e)) {
+  const page = await boardsNamedByPage(e);
+  for (const { ats, token } of page.supported) {
     const adapter = adapters[ats];
     if (!adapter) continue;
     try {
@@ -191,6 +219,19 @@ async function resolveOne(e: Entry): Promise<Entry> {
         // A failed probe is information, not an error. Keep going.
       }
     }
+  }
+
+  // Nothing supported. If the page named a platform this pipeline cannot read,
+  // record that rather than leaving an anonymous failure behind.
+  if (page.unsupported) {
+    return {
+      ...e,
+      ats: page.unsupported,
+      atsToken: null,
+      atsSupported: false,
+      resolveAttemptedAt: new Date().toISOString(),
+      notes: [e.notes, `hires through ${page.unsupported} — no adapter`].filter(Boolean).join("; "),
+    };
   }
 
   return { ...e, resolveAttemptedAt: new Date().toISOString() };
