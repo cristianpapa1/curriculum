@@ -92,6 +92,9 @@ const LEVEL_WORDS: Record<string, OwnLevel> = {
 const toOwnLevel = (v: unknown): OwnLevel | undefined =>
   typeof v === "string" ? LEVEL_WORDS[v.trim().toLowerCase()] : undefined;
 
+/** A citizenship or work right that holds across the EU/EEA. */
+export const EU_CITIZENSHIP = /^(austria|belgium|bulgaria|croatia|cyprus|czech|denmark|estonia|finland|france|germany|greece|hungary|ireland|italy|latvia|lithuania|luxembourg|malta|netherlands|poland|portugal|romania|slovakia|slovenia|spain|sweden|european union|eu|eea|european economic area)/i;
+
 let cached: { dir: string; policy: Policy } | null = null;
 
 /** The policy for the corpus in use (CORPUS_DIR). */
@@ -112,11 +115,10 @@ export function loadPolicy(dir: string = CORPUS_DIR): Policy {
     if (single) own.other = single;
   }
 
-  const EU = /^(austria|belgium|bulgaria|croatia|cyprus|czech|denmark|estonia|finland|france|germany|greece|hungary|ireland|italy|latvia|lithuania|luxembourg|malta|netherlands|poland|portugal|romania|slovakia|slovenia|spain|sweden|european union|eu|eea|european economic area)/i;
   const rights = [...(profile.eligibility?.citizenship ?? []), ...(profile.eligibility?.authorized_to_work ?? [])].map(String);
 
   const policy: Policy = {
-    euWorkRights: rights.some((r) => EU.test(r.trim())),
+    euWorkRights: rights.some((r) => EU_CITIZENSHIP.test(r.trim())),
     home: {
       country: prefs.home?.country ?? profile.eligibility?.country_of_residence ?? null,
       cities: prefs.home?.cities ?? [],

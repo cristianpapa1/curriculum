@@ -76,6 +76,12 @@ async function readEnv(): Promise<Record<string, string>> {
   return out;
 }
 
+/** One optional setting from `.env` (or the process environment), blank as null. */
+export async function envSetting(key: string): Promise<string | null> {
+  const v = (await readEnv())[key]?.trim();
+  return v ? v : null;
+}
+
 function required(env: Record<string, string>, key: string): string {
   const v = env[key];
   if (!v || v.trim() === "") {

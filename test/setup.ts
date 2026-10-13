@@ -7,3 +7,7 @@ import { join } from "node:path";
 
 process.env.CORPUS_DIR ??= join(import.meta.dir, "fixtures", "corpus");
 process.env.CURRICULUM_ENV_FILE ??= join(import.meta.dir, "fixtures", "applicant.env");
+
+// Bun loads the real .env into process.env before this file runs. No test may
+// reach TypeSafe with the real key: the Jev tests use fake clients.
+delete process.env.TYPESAFE_API_KEY;

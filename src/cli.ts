@@ -19,6 +19,7 @@ import { adapters } from "./ats/index.ts";
 import { isBrazilEligible } from "./ats/remote.ts";
 import { scoreJob } from "./pipeline/score.ts";
 import { prepareApplications, type Target } from "./pipeline/prepare.ts";
+import { jevClientFromEnv, formatJevUsage } from "./pipeline/jev.ts";
 import { rebuildLedgerView, loadApplications, analyseByAngle } from "./ledger/ledger.ts";
 import { registryTargets, loadRegistry, recordScan } from "./pipeline/registry.ts";
 import { buildSubmitPack } from "./pipeline/submitpack.ts";
@@ -149,10 +150,12 @@ switch (command) {
       process.exit(1);
     }
     const angle = flag("angle") ?? null;
+    const jev = has("no-jev") ? null : await jevClientFromEnv();
 
     console.log(
       `preparing — angle=${angle ?? "(auto per posting)"} targets=${targets.length} ` +
-        `minScore=${flag("min-score", "0")} limit=${flag("limit", "5")} pdf=${!has("no-pdf")}\n`,
+        `minScore=${flag("min-score", "0")} limit=${flag("limit", "5")} pdf=${!has("no-pdf")} ` +
+        `jev=${jev ? jev.model : has("no-jev") ? "off (--no-jev)" : "off (no TYPESAFE_API_KEY)"}\n`,
     );
 
     const result = await prepareApplications(corpus, targets, {
@@ -167,6 +170,7 @@ switch (command) {
       allowSponsorship: has("allow-sponsorship"),
       usEntryLevelOnly: has("us-entry-only"),
       focusOnly: has("focus-only"),
+      jev,
     });
 
     console.log(`fetched ${result.fetched} postings`);
@@ -189,6 +193,7 @@ switch (command) {
       console.log(`\nerrors ${result.errors.length}:`);
       for (const e of result.errors) console.log(`  ! ${e}`);
     }
+    if (result.jev) console.log(`\n${formatJevUsage(result.jev)}`);
     break;
   }
 
@@ -322,7 +327,7 @@ switch (command) {
         "          --from-registry                   ...or pull targets from Companies/registry.yaml",
         "          --title <regex>                   only postings whose title matches",
         "          --paths a,b                       lanes: remote-brazil-eligible, relocation-europe, relocation-us",
-        "          [--angle X] [--min-score N] [--limit N] [--no-pdf] [--ignore-eligibility]",
+        "          [--angle X] [--min-score N] [--limit N] [--no-pdf] [--ignore-eligibility] [--no-jev]",
         "  submit [--only <ats:jobId>] [--limit N]   fill a real form (DRY-RUN by default)",
         "         [--live]                           actually submit — irreversible",
         "         [--show]                           run headed so you can watch",

@@ -43,12 +43,33 @@ become manual packs with the CV, letter and every answer prepared.
 | `--focus-only` | Skip postings above the target level per field (`targeting.focus_levels`) |
 | `--us-entry-only` | Visa-sponsored roles (US, UK) only at entry level |
 | `--allow-sponsorship` | Include roles that need a work visa |
+| `--no-jev` | Turn the Jev second opinion off for this run |
 
 Gates applied before scoring: level (no staff/principal/management titles in
 any language), languages named in the title, posting language, citizenship or
 clearance requirements, postings reserved for a group, business functions with
 "IT" in the title, new-graduate programmes the user is not eligible for, and
 engineering outside software/infra/security.
+
+### The Jev second opinion (optional)
+
+With `TYPESAFE_API_KEY` in `.env`, each posting about to be tailored is also
+read by TypeSafe's Jev model (`src/pipeline/jev.ts`), which answers the same
+gate questions from the text rather than from patterns: level, managing
+people, discipline, reserved audience, citizenship, clearance, and whether a
+remote role excludes the home country. It adds set-asides (`jev/<check>`
+in the skip list) and never lifts a fit gate's. Under `--focus-only` it also
+lets in a posting whose title names no level when it reads the text as junior
+(noted `jev: admitted as junior`) — most junior postings never say "junior"
+in the title. An uncertain reading keeps the
+posting and is written to its `meta.json` notes as `jev: …` for the approve
+step. Only the posting text and the home country are sent. Answers are cached
+in `logs/jev-answers.jsonl`, and the run ends with a line of calls, tokens and
+cost. An outage turns it off for the run and prepares as before.
+
+Before relying on it, `bun run scripts/jev-audit.ts [--limit N | --all]`
+compares Jev with every decision already on file (kept applications and
+`Applications/_filtered/`) and lists the disagreements. It changes nothing.
 
 `bun run scripts/refilter-push.ts [--apply]` re-applies the gates to prepared
 applications after a rule changes. `bun run scripts/rerender.ts [--apply]`

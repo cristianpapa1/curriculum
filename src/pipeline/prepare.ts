@@ -28,6 +28,7 @@ import { renderLetter } from "../render/letter.ts";
 import { htmlToPdf } from "../render/pdf.ts";
 import { checkAntiFabrication, formatViolations } from "../position/antifab.ts";
 import { scoreJob, type JobScore } from "./score.ts";
+import { askAboutPosting, juniorReading, reviewWithJev, type JevClient, type JevUsage } from "./jev.ts";
 import {
   recordApplication,
   alreadyApplied,
@@ -77,6 +78,11 @@ export interface PrepareOptions {
   usEntryLevelOnly?: boolean;
   /** Generate PDFs. Off makes dry runs fast. */
   pdf?: boolean;
+  /**
+   * The Jev second opinion (jev.ts). Null or absent leaves it off — the CLI
+   * passes a client when TYPESAFE_API_KEY is set, tests never do.
+   */
+  jev?: JevClient | null;
   applicationsDir?: string;
   ledgerFile?: string;
 }
@@ -92,6 +98,8 @@ export interface PrepareResult {
   skipped: SkipReason[];
   fetched: number;
   errors: string[];
+  /** What the Jev second opinion cost this run, when it was on. */
+  jev?: JevUsage;
 }
 
 export async function prepareApplications(
@@ -129,8 +137,10 @@ export async function prepareApplications(
   // ── Filter, score, rank ───────────────────────────────────────────────
   const titleRe = opts.titleMatch ? new RegExp(opts.titleMatch, "i") : null;
 
-  const candidates: { job: NormalizedJob; score: JobScore }[] = [];
+  let jevOn = !!opts.jev;
+  const candidates: { job: NormalizedJob; score: JobScore; notes: string[] }[] = [];
   for (const job of jobs) {
+    const notes: string[] = [];
     if (titleRe && !titleRe.test(job.title)) continue;
     if (!opts.ignoreEligibility) {
       const elig = classifyEligibility(job);
@@ -177,10 +187,27 @@ export async function prepareApplications(
     // The candidate's own level by field (level.ts). A filter only with
     // --focus-only: by default volume comes first, and the focus orders the
     // manual index instead of excluding anything.
+    //
+    // Junior is judged on the title, and most junior postings never say so:
+    // "Analista de Infraestrutura" or "Cloud Engineer" with a 0–2-year ask.
+    // Jev reads the text, and a posting it places at junior is let in. This is
+    // the one place Jev lifts a filter — the title check, never a fit gate.
     const target = withinTargetLevel(job.title);
     if (opts.focusOnly && !target.ok) {
-      result.skipped.push({ job: job.title, company: job.companyToken, reason: `level: ${target.reason}` });
-      continue;
+      let junior: number | null = null;
+      if (jevOn && opts.jev) {
+        try {
+          junior = juniorReading(await askAboutPosting(opts.jev, job));
+        } catch (err) {
+          result.errors.push(`jev: ${(err as Error).message} — second opinion off for the rest of this run`);
+          jevOn = false;
+        }
+      }
+      if (junior === null) {
+        result.skipped.push({ job: job.title, company: job.companyToken, reason: `level: ${target.reason}` });
+        continue;
+      }
+      notes.push(`jev: admitted as junior (${junior.toFixed(1)} on a 0–4 scale) — the title names no level`);
     }
 
     // A posting that explicitly demands a spoken language the candidate does not
@@ -204,7 +231,7 @@ export async function prepareApplications(
       });
       continue;
     }
-    candidates.push({ job, score });
+    candidates.push({ job, score, notes });
   }
   candidates.sort((a, b) => b.score.score - a.score.score);
 
@@ -220,7 +247,7 @@ export async function prepareApplications(
     perCompany.set(k, (perCompany.get(k) ?? 0) + 1);
   }
 
-  for (const { job, score } of candidates) {
+  for (const { job, score, notes } of candidates) {
     if (result.prepared.length >= opts.limit) break;
     const companyKey = prettyCompany(job.companyToken).toLowerCase();
     const onFile = perCompany.get(companyKey) ?? 0;
@@ -244,6 +271,26 @@ export async function prepareApplications(
           reason: `already applied ${prior.preparedAt.slice(0, 10)} (${prior.status})`,
         });
         continue;
+      }
+
+      // The Jev second opinion, asked only of postings about to be tailored:
+      // any earlier and it would be paid for on postings the cap or the
+      // ledger were about to drop anyway. It can only set a posting aside.
+      let jevDoubts: string[] = [];
+      if (jevOn && opts.jev) {
+        try {
+          const verdict = await reviewWithJev(opts.jev, corpus, job, classifyEligibility(job).path);
+          if (!verdict.ok) {
+            result.skipped.push({ job: job.title, company: job.companyToken, reason: `jev/${verdict.check}: ${verdict.reason}` });
+            continue;
+          }
+          jevDoubts = verdict.doubts;
+        } catch (err) {
+          // Fail open — the regex gates have already run. One failure turns it
+          // off for the run, so an outage is one error line, not one per posting.
+          result.errors.push(`jev: ${(err as Error).message} — second opinion off for the rest of this run`);
+          jevOn = false;
+        }
       }
 
       const angle = opts.angle ?? score.suggestedAngle;
@@ -332,7 +379,8 @@ export async function prepareApplications(
         respondedAt: null,
         responseType: null,
         followUpDue: null,
-        notes: [],
+        // Kept-but-uncertain Jev readings, for whoever approves this one.
+        notes: [...notes, ...jevDoubts.map((d) => `jev: ${d}`)],
       };
 
       const dir = await recordApplication(meta, files, {
@@ -364,6 +412,7 @@ export async function prepareApplications(
     }
   }
 
+  if (opts.jev) result.jev = opts.jev.usage;
   return result;
 }
 
